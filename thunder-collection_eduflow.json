@@ -1,0 +1,159 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "EduFlow E2E Master",
+  "dateExported": "2025-12-27T17:00:00.000Z",
+  "version": "1.1",
+  "folders": [
+    {
+      "id": "f1",
+      "name": "01. Authentication",
+      "containerId": ""
+    },
+    {
+      "id": "f2",
+      "name": "02. MFA Operations",
+      "containerId": ""
+    },
+    {
+      "id": "f3",
+      "name": "03. Student Management (Tenant)",
+      "containerId": ""
+    },
+    {
+      "id": "f4",
+      "name": "04. Teacher Management (Tenant)",
+      "containerId": ""
+    },
+    {
+      "id": "f5",
+      "name": "05. Academic",
+      "containerId": ""
+    },
+    {
+      "id": "f6",
+      "name": "06. Finance",
+      "containerId": ""
+    }
+  ],
+  "settings": {
+    "options": {
+      "baseUrl": "http://localhost:4000/api"
+    },
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ]
+  },
+  "items": [
+    {
+      "name": "Register Admin",
+      "url": "{{baseUrl}}/auth/register",
+      "method": "POST",
+      "containerId": "f1",
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"firstName\": \"Admin\",\n  \"lastName\": \"User\",\n  \"email\": \"admin@eduflow.com\",\n  \"password\": \"pass123\",\n  \"role\": \"institute\"\n}"
+      }
+    },
+    {
+      "name": "Login",
+      "url": "{{baseUrl}}/auth/login",
+      "method": "POST",
+      "containerId": "f1",
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"admin@eduflow.com\",\n  \"password\": \"pass123\"\n}"
+      }
+    },
+    {
+      "name": "MFA Setup",
+      "url": "{{baseUrl}}/auth/mfa-setup",
+      "method": "GET",
+      "containerId": "f2",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{jwtToken}}"
+        }
+      ]
+    },
+    {
+      "name": "MFA Verify & Enable",
+      "url": "{{baseUrl}}/auth/mfa-verify",
+      "method": "POST",
+      "containerId": "f2",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{jwtToken}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"token\": \"123456\"\n}"
+      }
+    },
+    {
+      "name": "Create Student (Nepal)",
+      "url": "http://nepal.localhost:4000/api/institute/student",
+      "method": "POST",
+      "containerId": "f3",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{jwtToken}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"firstName\": \"Ram\",\n  \"lastName\": \"Sharma\",\n  \"studentPhoneNo\": \"9800000000\",\n  \"studentAddress\": \"Kathmandu\",\n  \"studentGender\": \"Male\",\n  \"studentClass\": \"10\"\n}"
+      }
+    },
+    {
+      "name": "Get Students (Nepal)",
+      "url": "http://nepal.localhost:4000/api/institute/student",
+      "method": "GET",
+      "containerId": "f3",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{jwtToken}}"
+        }
+      ]
+    },
+    {
+      "name": "Create Teacher (Nepal)",
+      "url": "http://nepal.localhost:4000/api/institute/teacher",
+      "method": "POST",
+      "containerId": "f4",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{jwtToken}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"firstName\": \"Maya\",\n  \"lastName\": \"Tamang\",\n  \"teacherPhoneNumber\": \"9811111111\",\n  \"teacherAddress\": \"Lalitpur\",\n  \"department\": \"Science\"\n}"
+      }
+    },
+    {
+      "name": "Record Payment",
+      "url": "http://nepal.localhost:4000/api/institute/finance/payment",
+      "method": "POST",
+      "containerId": "f6",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{jwtToken}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"studentId\": \"STUDENT_UUID_HERE\",\n  \"feeStructureId\": \"FEE_UUID_HERE\",\n  \"amountPaid\": 5000,\n  \"paymentMethod\": \"Cash\",\n  \"transactionId\": \"TRANS_123\"\n}"
+      }
+    }
+  ]
+}

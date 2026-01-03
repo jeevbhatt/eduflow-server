@@ -1,0 +1,38 @@
+src/client-teacher/saas-frontend-teacher-main/next.config.ts(1,33): error TS2307: Cannot find module 'next' or its corresponding type declarations.
+src/client-teacher/saas-frontend-teacher-main/src/app/auth/login/page.tsx(6,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/auth/login/page.tsx(6,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/client-teacher/saas-frontend-teacher-main/src/app/auth/login/page.tsx(6,31): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/layout.tsx(1,31): error TS2307: Cannot find module 'next' or its corresponding type declarations.
+src/client-teacher/saas-frontend-teacher-main/src/app/layout.tsx(2,35): error TS2307: Cannot find module 'next/font/google' or its corresponding type declarations.
+src/client-teacher/saas-frontend-teacher-main/src/app/layout.tsx(23,13): error TS2503: Cannot find namespace 'React'.
+src/client-teacher/saas-frontend-teacher-main/src/app/layout.tsx(26,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/layout.tsx(26,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/client-teacher/saas-frontend-teacher-main/src/app/layout.tsx(27,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/layout.tsx(27,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/client-teacher/saas-frontend-teacher-main/src/app/layout.tsx(31,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/layout.tsx(32,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/page.tsx(1,19): error TS2307: Cannot find module 'next/image' or its corresponding type declarations.
+src/client-teacher/saas-frontend-teacher-main/src/app/page.tsx(5,3): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/page.tsx(5,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/client-teacher/saas-frontend-teacher-main/src/app/page.tsx(5,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/teacher/dashboard/courses/page.tsx(6,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/teacher/dashboard/courses/page.tsx(6,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/client-teacher/saas-frontend-teacher-main/src/app/teacher/dashboard/courses/page.tsx(6,27): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/teacher/dashboard/page.tsx(5,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/teacher/dashboard/page.tsx(5,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/client-teacher/saas-frontend-teacher-main/src/app/teacher/dashboard/page.tsx(5,30): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/teacher/dashboard/personal-details/page.tsx(6,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/teacher/dashboard/personal-details/page.tsx(6,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/client-teacher/saas-frontend-teacher-main/src/app/teacher/dashboard/personal-details/page.tsx(6,34): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/teacher/dashboard/students/page.tsx(5,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/app/teacher/dashboard/students/page.tsx(5,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/client-teacher/saas-frontend-teacher-main/src/app/teacher/dashboard/students/page.tsx(5,28): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/client-teacher/saas-frontend-teacher-main/src/lib/store/auth/auth-slice.ts(1,44): error TS2307: Cannot find module '@reduxjs/toolkit' or its corresponding type declarations.
+src/client-teacher/saas-frontend-teacher-main/src/lib/store/auth/auth-slice.ts(3,24): error TS2307: Cannot find module '@/lib/global/types/global-type' or its corresponding type declarations.
+src/client-teacher/saas-frontend-teacher-main/src/lib/store/auth/auth-slice.ts(5,24): error TS2307: Cannot find module '@/lib/global/http/api' or its corresponding type declarations.
+src/client-teacher/saas-frontend-teacher-main/src/lib/store/auth/auth-type.ts(1,24): error TS2307: Cannot find module '@/lib/global/types/global-type' or its corresponding type declarations.
+src/client-teacher/saas-frontend-teacher-main/src/lib/store/store.ts(6,32): error TS2307: Cannot find module '@reduxjs/toolkit' or its corresponding type declarations.
+src/client-teacher/saas-frontend-teacher-main/src/lib/utils.ts(1,39): error TS2307: Cannot find module 'clsx' or its corresponding type declarations.
+src/client-teacher/saas-frontend-teacher-main/src/lib/utils.ts(2,25): error TS2307: Cannot find module 'tailwind-merge' or its corresponding type declarations.
+src/controller/globals/security/securityController.ts(2,23): error TS2307: Cannot find module '../../database/connection' or its corresponding type declarations.
+src/controller/globals/security/securityController.ts(4,34): error TS2307: Cannot find module '../../middleware/type' or its corresponding type declarations.
