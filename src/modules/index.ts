@@ -14,6 +14,9 @@ import studyGroupRoutes from "./studyGroup/routes/index";
 import supportRoutes from "./support/routes/index";
 import notificationRoutes from "./notification/routes/index";
 import instituteRoutes from "./institute/routes/index";
+import academicRoutes from "./academic/routes/index";
+import billingRoutes from "./billing/routes/index";
+import progressRoutes from "./progress/routes/index";
 
 const router: Router = express.Router();
 
@@ -30,5 +33,8 @@ router.use("/study-group", studyGroupRoutes);
 router.use("/support", supportRoutes);
 router.use("/notification", notificationRoutes);
 router.use("/institute", instituteRoutes);
+router.use("/academic", academicRoutes);
+router.use("/billing", billingRoutes);
+router.use("/progress", progressRoutes);
 
 export default router;
