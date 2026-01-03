@@ -1,0 +1,104 @@
+Prisma schema loaded from prisma\schema.prisma.
+Error: Prisma schema validation - (get-config wasm)
+Error code: P1012
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma\schema.prisma:1
+   | 
+   | 
+ 1 | ∩╗┐generator client {
+ 2 |   provider = "prisma-client-js"
+   | 
+
+
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma\schema.prisma:2
+   | 
+ 1 | ∩╗┐generator client {
+ 2 |   provider = "prisma-client-js"
+ 3 |   output   = "../src/generated/prisma"
+   | 
+
+
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma\schema.prisma:3
+   | 
+ 2 |   provider = "prisma-client-js"
+ 3 |   output   = "../src/generated/prisma"
+ 4 | }
+   | 
+
+
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma\schema.prisma:4
+   | 
+ 3 |   output   = "../src/generated/prisma"
+ 4 | }
+ 5 | 
+   | 
+
+
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma\schema.prisma:11
+   | 
+10 | 
+11 |   output   = "../src/generated/prisma"
+12 | 
+   | 
+
+
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma\schema.prisma:13
+   | 
+12 | 
+13 |   url      = env("DATABASE_URL")
+14 | 
+   | 
+
+
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma\schema.prisma:15
+   | 
+14 | 
+15 |   output   = "../src/generated/prisma"
+16 | }
+   | 
+
+
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma\schema.prisma:16
+   | 
+15 |   output   = "../src/generated/prisma"
+16 | }
+17 | 
+   | 
+
+
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma\schema.prisma:18
+   | 
+17 | 
+18 |   url      = env("DATABASE_URL")
+19 | }
+   | 
+
+
+error: Error validating: This line is invalid. It does not start with any known Prisma schema keyword.
+  -->  prisma\schema.prisma:19
+   | 
+18 |   url      = env("DATABASE_URL")
+19 | }
+20 | 
+   | 
+
+
+error: The datasource property `url` is no longer supported in schema files. Move connection URLs for Migrate to `prisma.config.ts` and pass either `adapter` for a direct database connection or `accelerateUrl` for Accelerate to the `PrismaClient` constructor. See https://pris.ly/d/config-datasource and https://pris.ly/d/prisma7-client-config
+  -->  prisma\schema.prisma:8
+   | 
+ 7 |   provider = "postgresql"
+ 8 |   url      = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 11
+[Context: getConfig]
+
+Prisma CLI Version : 7.2.0

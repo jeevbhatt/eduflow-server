@@ -79,7 +79,6 @@ src/controller/super-admin/accountManagementController.ts(313,41): error TS2339:
 src/controller/teacher/courses/chapters/chapter-controller.ts(15,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
 src/controller/teacher/courses/lessons/lesson-controller.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
 src/controller/teacher/teacherController.ts(8,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
-src/core/database/prisma.ts(1,10): error TS2305: Module '"@prisma/client"' has no exported member 'PrismaClient'.
 src/core/services/firebaseStorage.ts(1,24): error TS2307: Cannot find module 'firebase-admin' or its corresponding type declarations.
 src/core/services/firebaseStorage.ts(2,30): error TS2307: Cannot find module 'uuid' or its corresponding type declarations.
 src/database/models/instituteModel.ts(4,3): error TS2769: No overload matches this call.
@@ -95,6 +94,7 @@ src/database/models/userModel.ts(4,3): error TS2769: No overload matches this ca
 src/middleware/middleware.ts(46,33): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
 src/middleware/middleware.ts(191,33): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
 src/middleware/securityMiddleware.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/modules/auth/services/authService.ts(2,17): error TS2307: Cannot find module 'jsonwebtoken' or its corresponding type declarations.
 src/route/institute/instituteRoute.ts(5,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createCategoryTable'.
 src/route/institute/instituteRoute.ts(6,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createChapterLessonTable'.
 src/route/institute/instituteRoute.ts(7,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createCourseChapterTable'.

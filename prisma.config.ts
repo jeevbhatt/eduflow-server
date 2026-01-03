@@ -1,13 +1,9 @@
 /**
- * Prisma Configuration for Supabase Integration
+ * Prisma Configuration for Supabase Integration (Prisma 7+)
  *
- * This configuration uses two connection strategies:
- * - DIRECT_URL: For Prisma CLI operations (migrations, introspection)
- *   Uses direct PostgreSQL connection (port 5432) bypassing connection pooler
- * - DATABASE_URL: For Prisma Client runtime queries
- *   Uses Supavisor connection pooling (port 6543) for better performance
- *
- * @see https://www.prisma.io/docs/guides/database/supabase
+ * Since Prisma 7, datasource URLs must be configured here for CLI operations.
+ * - DIRECT_URL: For migrations and introspection (bypasses connection pooler)
+ * - DATABASE_URL: For runtime queries (uses connection pooling)
  */
 import { config } from "dotenv";
 import { defineConfig, env } from "prisma/config";
@@ -20,9 +16,7 @@ export default defineConfig({
   migrations: {
     path: "prisma/migrations",
   },
-  // DIRECT_URL for CLI operations (migrations, db push, introspection)
-  // This bypasses connection pooling which is required for DDL operations
   datasource: {
-    url: env("DIRECT_URL"),
+    url: env("DATABASE_URL"),
   },
 });

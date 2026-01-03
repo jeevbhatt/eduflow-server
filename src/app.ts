@@ -16,7 +16,7 @@ import { sanitizeBody, sanitizeQuery } from "@core/services/validationService";
 
 // Modular Routes
 import modularRouter from "@modules/index";
-import healthRoute from "./route/healthRoute";
+import healthRoute from "@core/routes/health.route";
 
 const app = express();
 

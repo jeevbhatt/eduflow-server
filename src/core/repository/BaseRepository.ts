@@ -23,6 +23,16 @@ export abstract class BaseRepository<T> {
     return this.model.findMany(params);
   }
 
+  async findFirst(params: {
+    where?: any;
+    orderBy?: any;
+    skip?: number;
+    take?: number;
+    include?: any;
+  }): Promise<T | null> {
+    return this.model.findFirst(params);
+  }
+
   async create(data: any): Promise<T> {
     return this.model.create({
       data,
@@ -39,7 +49,12 @@ export abstract class BaseRepository<T> {
   async delete(id: string): Promise<T> {
     return this.model.delete({
       where: { id },
+      data: { deletedAt: new Date() }, // Default to soft delete if possible
     });
+  }
+
+  async deleteMany(params: { where: any }): Promise<{ count: number }> {
+    return this.model.deleteMany(params);
   }
 
   async count(where?: any): Promise<number> {
