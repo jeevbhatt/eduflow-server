@@ -5,12 +5,19 @@ import authRepo from "../repository/auth.repo";
 
 export const googleLogin = async (req: Request, res: Response) => {
   try {
-    const { credential } = req.body; // credential is the ID Token from GIS
-    if (!credential) {
-      return res.status(400).json({ status: "error", message: "Missing Google credential" });
-    }
+    const { credential, code } = req.body;
 
-    const googleUser = await oauthService.verifyGoogleToken(credential);
+    let googleUser;
+
+    if (code) {
+      // Authorization Code Flow (Secure)
+      googleUser = await oauthService.verifyGoogleCode(code);
+    } else if (credential) {
+      // Legacy/Implicit Flow (ID Token)
+      googleUser = await oauthService.verifyGoogleToken(credential);
+    } else {
+      return res.status(400).json({ status: "error", message: "Missing Google code or credential" });
+    }
 
     // Find or create user in our database
     let user = await authRepo.findByEmail(googleUser.email!);

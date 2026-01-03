@@ -40,6 +40,37 @@ export class OAuthService {
       throw new Error("Failed to verify Google Token: " + error.message);
     }
   }
+
+  /**
+   * Exchanges a Google Authorization Code for Tokens (Access + ID Token).
+   * This is the secure "Authorization Code Flow".
+   */
+  async verifyGoogleCode(code: string) {
+    try {
+      const { tokens } = await this.client.getToken(code);
+      const ticket = await this.client.verifyIdToken({
+        idToken: tokens.id_token!,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+      const payload = ticket.getPayload();
+
+      if (!payload) {
+        throw new Error("Invalid Google token payload");
+      }
+
+      return {
+        email: payload.email,
+        firstName: payload.given_name,
+        lastName: payload.family_name,
+        picture: payload.picture,
+        googleId: payload.sub,
+        emailVerified: payload.email_verified,
+      };
+    } catch (error: any) {
+      console.error("Google Code Exchange Error:", error.message);
+      throw new Error("Failed to exchange Google Code: " + error.message);
+    }
+  }
 }
 
 export default new OAuthService();
