@@ -1,0 +1,143 @@
+src/controller/globals/auth/authController.ts(63,39): error TS2339: Property 'findOne' does not exist on type 'typeof User'.
+src/controller/globals/auth/authController.ts(74,34): error TS2339: Property 'create' does not exist on type 'typeof User'.
+src/controller/globals/auth/authController.ts(128,31): error TS2339: Property 'findOne' does not exist on type 'typeof User'.
+src/controller/globals/auth/authController.ts(212,31): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/controller/globals/auth/authController.ts(279,31): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/controller/globals/auth/authController.ts(326,31): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/controller/globals/auth/authController.ts(393,31): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/controller/globals/auth/authController.ts(444,31): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/controller/globals/auth/authController.ts(480,31): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/controller/globals/auth/authController.ts(495,18): error TS2339: Property 'update' does not exist on type 'typeof User'.
+src/controller/globals/auth/authController.ts(497,38): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/controller/globals/auth/authController.ts(531,18): error TS2339: Property 'update' does not exist on type 'typeof User'.
+src/controller/globals/auth/authController.ts(562,31): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/controller/globals/auth/oauthController.ts(59,31): error TS2339: Property 'findOne' does not exist on type 'typeof User'.
+src/controller/globals/auth/oauthController.ts(62,31): error TS2339: Property 'findOne' does not exist on type 'typeof User'.
+src/controller/globals/auth/oauthController.ts(64,28): error TS2339: Property 'update' does not exist on type 'typeof User'.
+src/controller/globals/auth/oauthController.ts(69,31): error TS2339: Property 'create' does not exist on type 'typeof User'.
+src/controller/globals/auth/oauthController.ts(125,35): error TS2339: Property 'findOne' does not exist on type 'typeof User'.
+src/controller/globals/auth/oauthController.ts(128,35): error TS2339: Property 'findOne' does not exist on type 'typeof User'.
+src/controller/globals/auth/oauthController.ts(130,32): error TS2339: Property 'update' does not exist on type 'typeof User'.
+src/controller/globals/auth/oauthController.ts(135,35): error TS2339: Property 'create' does not exist on type 'typeof User'.
+src/controller/globals/auth/verificationController.ts(104,31): error TS2339: Property 'findOne' does not exist on type 'typeof User'.
+src/controller/globals/auth/verificationController.ts(139,31): error TS2339: Property 'findOne' does not exist on type 'typeof User'.
+src/controller/globals/auth/verificationController.ts(232,18): error TS2339: Property 'update' does not exist on type 'typeof User'.
+src/controller/globals/security/securityController.ts(3,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/institute/academic/analyticsController.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/institute/academic/examController.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/institute/assessment/assessmentController.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/institute/attendance/attendanceController.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/institute/category/categoryController.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/institute/course/courseController.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/institute/finance/feeController.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/institute/instituteController.ts(29,7): error TS2322: Type '{ instituteName: any; email: any; phone: any; address: any; panNo: any; vatNo: any; owner: { connect: { id: string; }; } | undefined; }' is not assignable to type '(Without<InstituteCreateInput, InstituteUncheckedCreateInput> & InstituteUncheckedCreateInput) | (Without<...> & InstituteCreateInput)'.
+  Type '{ instituteName: any; email: any; phone: any; address: any; panNo: any; vatNo: any; owner: { connect: { id: string; }; } | undefined; }' is not assignable to type 'Without<InstituteUncheckedCreateInput, InstituteCreateInput> & InstituteCreateInput'.
+    Type '{ instituteName: any; email: any; phone: any; address: any; panNo: any; vatNo: any; owner: { connect: { id: string; }; } | undefined; }' is missing the following properties from type 'InstituteCreateInput': subdomain, instituteNumber
+src/controller/institute/instituteController.ts(57,59): error TS18046: 'error' is of type 'unknown'.
+src/controller/institute/library/libraryController.ts(34,9): error TS2322: Type 'string | null | undefined' is not assignable to type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+src/controller/institute/library/libraryController.ts(45,9): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/controller/institute/library/libraryController.ts(98,9): error TS2322: Type 'string | null | undefined' is not assignable to type 'string | UuidFilter<"LibraryResource"> | undefined'.
+  Type 'null' is not assignable to type 'string | UuidFilter<"LibraryResource"> | undefined'.
+src/controller/institute/library/libraryController.ts(129,20): error TS2322: Type 'string | null | undefined' is not assignable to type 'string | UuidFilter<"LibraryResource"> | undefined'.
+  Type 'null' is not assignable to type 'string | UuidFilter<"LibraryResource"> | undefined'.
+src/controller/institute/library/libraryController.ts(156,9): error TS2353: Object literal may only specify known properties, and 'status' does not exist in type '(Without<LibraryResourceUpdateInput, LibraryResourceUncheckedUpdateInput> & LibraryResourceUncheckedUpdateInput) | (Without<...> & LibraryResourceUpdateInput)'.
+src/controller/institute/library/libraryController.ts(173,20): error TS2322: Type 'string | null | undefined' is not assignable to type 'string | UuidFilter<"LibraryResource"> | undefined'.
+  Type 'null' is not assignable to type 'string | UuidFilter<"LibraryResource"> | undefined'.
+src/controller/institute/library/libraryController.ts(201,30): error TS2322: Type 'string | null | undefined' is not assignable to type 'string | UuidFilter<"LibraryResource"> | undefined'.
+  Type 'null' is not assignable to type 'string | UuidFilter<"LibraryResource"> | undefined'.
+src/controller/institute/library/libraryController.ts(213,11): error TS2322: Type 'Date | undefined' is not assignable to type 'string | Date'.
+  Type 'undefined' is not assignable to type 'string | Date'.
+src/controller/institute/library/libraryController.ts(223,48): error TS2353: Object literal may only specify known properties, and 'status' does not exist in type '(Without<LibraryResourceUpdateInput, LibraryResourceUncheckedUpdateInput> & LibraryResourceUncheckedUpdateInput) | (Without<...> & LibraryResourceUpdateInput)'.
+src/controller/institute/library/libraryController.ts(259,47): error TS2322: Type 'string | null | undefined' is not assignable to type 'string | UuidFilter<"LibraryResource"> | undefined'.
+  Type 'null' is not assignable to type 'string | UuidFilter<"LibraryResource"> | undefined'.
+src/controller/institute/library/libraryController.ts(274,48): error TS2353: Object literal may only specify known properties, and 'status' does not exist in type '(Without<LibraryResourceUpdateInput, LibraryResourceUncheckedUpdateInput> & LibraryResourceUncheckedUpdateInput) | (Without<...> & LibraryResourceUpdateInput)'.
+src/controller/institute/library/libraryController.ts(299,21): error TS2322: Type 'string | null | undefined' is not assignable to type 'string | UuidFilter<"LibraryResource"> | undefined'.
+  Type 'null' is not assignable to type 'string | UuidFilter<"LibraryResource"> | undefined'.
+src/controller/institute/result/resultController.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/institute/student/studentController.ts(14,14): error TS2322: Type 'string | number | null | undefined' is not assignable to type 'string | UuidFilter<"Student"> | undefined'.
+  Type 'null' is not assignable to type 'string | UuidFilter<"Student"> | undefined'.
+src/controller/institute/student/studentController.ts(50,9): error TS2322: Type 'string | number | null | undefined' is not assignable to type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+src/controller/institute/student/studentController.ts(79,18): error TS2322: Type 'string | number | null | undefined' is not assignable to type 'string | UuidFilter<"Student"> | undefined'.
+  Type 'null' is not assignable to type 'string | UuidFilter<"Student"> | undefined'.
+src/controller/institute/student/studentController.ts(93,18): error TS2322: Type 'string | number | null | undefined' is not assignable to type 'string | UuidFilter<"Student"> | undefined'.
+  Type 'null' is not assignable to type 'string | UuidFilter<"Student"> | undefined'.
+src/controller/integration/googleSheetsController.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/integration/integrationController.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/student/institute/student-institute.controller.ts(3,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/student/order/student-order.controller.ts(32,31): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/controller/super-admin/accountManagementController.ts(7,20): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/super-admin/accountManagementController.ts(37,41): error TS2339: Property 'findByPk' does not exist on type 'typeof Institute'.
+src/controller/super-admin/accountManagementController.ts(73,41): error TS2339: Property 'findByPk' does not exist on type 'typeof Institute'.
+src/controller/super-admin/accountManagementController.ts(119,41): error TS2339: Property 'findByPk' does not exist on type 'typeof Institute'.
+src/controller/super-admin/accountManagementController.ts(204,41): error TS2339: Property 'findOne' does not exist on type 'typeof Institute'.
+src/controller/super-admin/accountManagementController.ts(277,42): error TS2339: Property 'findAll' does not exist on type 'typeof Institute'.
+src/controller/super-admin/accountManagementController.ts(291,39): error TS7006: Parameter 'inst' implicitly has an 'any' type.
+src/controller/super-admin/accountManagementController.ts(313,41): error TS2339: Property 'findByPk' does not exist on type 'typeof Institute'.
+src/controller/teacher/courses/chapters/chapter-controller.ts(15,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/teacher/courses/lessons/lesson-controller.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/controller/teacher/teacherController.ts(8,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/core/database/prisma.ts(1,10): error TS2305: Module '"@prisma/client"' has no exported member 'PrismaClient'.
+src/core/services/firebaseStorage.ts(1,24): error TS2307: Cannot find module 'firebase-admin' or its corresponding type declarations.
+src/core/services/firebaseStorage.ts(2,30): error TS2307: Cannot find module 'uuid' or its corresponding type declarations.
+src/database/models/instituteModel.ts(4,3): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(options: TableOptions<Model<any, any>>): Function', gave the following error.
+    Object literal may only specify known properties, and 'tableName' does not exist in type 'TableOptions<Model<any, any>>'.
+  Overload 2 of 2, '(target: Function): void', gave the following error.
+    Object literal may only specify known properties, and 'tableName' does not exist in type 'Function'.
+src/database/models/userModel.ts(4,3): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(options: TableOptions<Model<any, any>>): Function', gave the following error.
+    Object literal may only specify known properties, and 'tableName' does not exist in type 'TableOptions<Model<any, any>>'.
+  Overload 2 of 2, '(target: Function): void', gave the following error.
+    Object literal may only specify known properties, and 'tableName' does not exist in type 'Function'.
+src/middleware/middleware.ts(46,33): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/middleware/middleware.ts(191,33): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/middleware/securityMiddleware.ts(4,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/modules/auth/repository/authRepository.ts(2,10): error TS2305: Module '"@prisma/client"' has no exported member 'User'.
+src/modules/auth/services/authService.ts(2,17): error TS2307: Cannot find module 'jsonwebtoken' or its corresponding type declarations.
+src/route/institute/instituteRoute.ts(5,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createCategoryTable'.
+src/route/institute/instituteRoute.ts(6,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createChapterLessonTable'.
+src/route/institute/instituteRoute.ts(7,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createCourseChapterTable'.
+src/route/institute/instituteRoute.ts(8,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createCourseTable'.
+src/route/institute/instituteRoute.ts(10,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createStudentTable'.
+src/route/institute/instituteRoute.ts(11,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createTeacherTable'.
+src/route/institute/instituteRoute.ts(12,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createAttendanceTable'.
+src/route/institute/instituteRoute.ts(13,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createAssessmentTable'.
+src/route/institute/instituteRoute.ts(14,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createResultTable'.
+src/route/institute/instituteRoute.ts(15,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createFeeTables'.
+src/route/institute/instituteRoute.ts(16,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createExamScheduleTable'.
+src/route/institute/instituteRoute.ts(17,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createSecurityLogsTable'.
+src/route/institute/instituteRoute.ts(18,3): error TS2305: Module '"../../controller/institute/instituteController"' has no exported member 'createLibraryTables'.
+src/services/apiSecurityService.ts(12,28): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/services/otpService.ts(43,27): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/services/otpService.ts(87,27): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/services/otpService.ts(108,27): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/services/otpService.ts(127,27): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/services/otpService.ts(167,27): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/services/otpService.ts(207,27): error TS2339: Property 'findOne' does not exist on type 'typeof User'.
+src/services/profileCompletionService.ts(162,37): error TS2339: Property 'findByPk' does not exist on type 'typeof Institute'.
+src/services/profileCompletionService.ts(167,19): error TS2339: Property 'update' does not exist on type 'typeof Institute'.
+src/services/softDeleteService.ts(4,20): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/services/softDeleteService.ts(20,27): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/services/softDeleteService.ts(46,37): error TS2339: Property 'findByPk' does not exist on type 'typeof Institute'.
+src/services/softDeleteService.ts(63,28): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/services/softDeleteService.ts(88,27): error TS2339: Property 'findOne' does not exist on type 'typeof User'.
+src/services/softDeleteService.ts(110,37): error TS2339: Property 'findOne' does not exist on type 'typeof Institute'.
+src/services/softDeleteService.ts(136,35): error TS2339: Property 'findAll' does not exist on type 'typeof User'.
+src/services/softDeleteService.ts(149,45): error TS2339: Property 'findAll' does not exist on type 'typeof Institute'.
+src/services/softDeleteService.ts(202,28): error TS2339: Property 'findAll' does not exist on type 'typeof User'.
+src/services/softDeleteService.ts(208,38): error TS2339: Property 'findAll' does not exist on type 'typeof Institute'.
+src/services/trialService.ts(4,20): error TS2307: Cannot find module 'sequelize' or its corresponding type declarations.
+src/services/trialService.ts(20,19): error TS2339: Property 'update' does not exist on type 'typeof Institute'.
+src/services/trialService.ts(46,20): error TS2339: Property 'findAll' does not exist on type 'typeof Institute'.
+src/services/trialService.ts(70,28): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/services/trialService.ts(115,19): error TS2339: Property 'update' does not exist on type 'typeof Institute'.
+src/services/trialService.ts(127,20): error TS2339: Property 'findAll' does not exist on type 'typeof Institute'.
+src/services/trialService.ts(140,28): error TS2339: Property 'findByPk' does not exist on type 'typeof User'.
+src/services/trialService.ts(145,19): error TS2339: Property 'update' does not exist on type 'typeof Institute'.
+src/services/trialService.ts(191,37): error TS2339: Property 'findByPk' does not exist on type 'typeof Institute'.
+src/services/trialService.ts(198,19): error TS2339: Property 'update' does not exist on type 'typeof Institute'.
+src/services/trialService.ts(216,37): error TS2339: Property 'findByPk' does not exist on type 'typeof Institute'.
+src/services/trialService.ts(221,19): error TS2339: Property 'update' does not exist on type 'typeof Institute'.
