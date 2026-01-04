@@ -1,5 +1,5 @@
 import { BaseRepository } from "@core/repository/BaseRepository";
-import { SupportTicket, SupportTicketMessage, TicketPriority, TicketStatus } from "@generated/prisma";
+import { SupportTicket, SupportTicketMessage, TicketPriority, TicketStatus } from "@prisma/client";
 import prisma from "../../../core/database/prisma";
 
 export class SupportRepo extends BaseRepository<SupportTicket> {

@@ -1,5 +1,5 @@
 import { BaseRepository } from "@core/repository/BaseRepository";
-import { Institute } from "@generated/prisma";
+import { Institute } from "@prisma/client";
 
 export class InstituteRepo extends BaseRepository<Institute> {
   constructor() {

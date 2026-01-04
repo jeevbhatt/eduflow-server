@@ -1,4 +1,4 @@
-import { Category } from "@generated/prisma";
+import { Category } from "@prisma/client";
 import categoryRepo from "../repository/category.repo";
 
 export class CategoryService {

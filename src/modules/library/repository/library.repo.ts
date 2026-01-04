@@ -1,5 +1,5 @@
 import { BaseRepository } from "@core/repository/BaseRepository";
-import { LibraryResource, LibraryBorrow } from "@generated/prisma";
+import { LibraryResource, LibraryBorrow } from "@prisma/client";
 import prisma from "../../../core/database/prisma";
 
 export class LibraryRepo extends BaseRepository<LibraryResource> {

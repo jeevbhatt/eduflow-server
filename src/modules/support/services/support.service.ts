@@ -1,5 +1,5 @@
 import supportRepo from "../repository/support.repo";
-import { TicketPriority, TicketStatus } from "@generated/prisma";
+import { TicketPriority, TicketStatus } from "@prisma/client";
 
 export class SupportService {
   async getMyTickets(userId: string, filters: any) {

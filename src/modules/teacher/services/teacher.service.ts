@@ -1,5 +1,5 @@
 import teacherRepo from "../repository/teacher.repo";
-import { Teacher } from "@generated/prisma";
+import { Teacher } from "@prisma/client";
 
 export class TeacherService {
   async getTeacherByEmail(email: string, instituteId: string) {

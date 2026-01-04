@@ -1,5 +1,5 @@
 import { BaseRepository } from "@core/repository/BaseRepository";
-import { ForumCategory, ForumTopic, ForumPost } from "@generated/prisma";
+import { ForumCategory, ForumTopic, ForumPost } from "@prisma/client";
 import prisma from "../../../core/database/prisma";
 
 export class ForumRepo extends BaseRepository<ForumCategory> {

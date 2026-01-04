@@ -1,5 +1,5 @@
 import { BaseRepository } from "@core/repository/BaseRepository";
-import { User } from "@generated/prisma";
+import { User } from "@prisma/client";
 
 export class AuthRepo extends BaseRepository<User> {
   constructor() {

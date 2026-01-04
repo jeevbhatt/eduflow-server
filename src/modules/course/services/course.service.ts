@@ -1,5 +1,5 @@
 import courseRepo from "../repository/course.repo";
-import { Course } from "@generated/prisma";
+import { Course } from "@prisma/client";
 import firebaseStorage from "../../../core/services/firebaseStorage";
 import { Express } from "express";
 

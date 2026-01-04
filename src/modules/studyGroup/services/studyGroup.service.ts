@@ -1,5 +1,5 @@
 import studyGroupRepo from "../repository/studyGroup.repo";
-import { StudyGroupRole } from "@generated/prisma";
+import { StudyGroupRole } from "@prisma/client";
 
 export class StudyGroupService {
   async createGroup(data: { instituteId: string; userId: string; name: string; description?: string; maxMembers?: number; isPublic?: boolean; courseId?: string }) {

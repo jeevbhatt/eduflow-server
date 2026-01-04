@@ -1,5 +1,5 @@
 import { BaseRepository } from "@core/repository/BaseRepository";
-import { Attendance } from "@generated/prisma";
+import { Attendance } from "@prisma/client";
 import prisma from "../../../core/database/prisma";
 
 export class AttendanceRepo extends BaseRepository<Attendance> {

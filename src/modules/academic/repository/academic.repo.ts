@@ -1,5 +1,5 @@
 import { BaseRepository } from "@core/repository/BaseRepository";
-import { Assessment, AssessmentResult } from "@generated/prisma";
+import { Assessment, AssessmentResult } from "@prisma/client";
 import prisma from "../../../core/database/prisma";
 
 export class AcademicRepo extends BaseRepository<Assessment> {

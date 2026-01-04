@@ -1,5 +1,5 @@
 import { BaseRepository } from "@core/repository/BaseRepository";
-import { FeeStructure, FeePayment } from "@generated/prisma";
+import { FeeStructure, FeePayment } from "@prisma/client";
 import prisma from "../../../core/database/prisma";
 
 export class FinanceRepo extends BaseRepository<FeeStructure> {

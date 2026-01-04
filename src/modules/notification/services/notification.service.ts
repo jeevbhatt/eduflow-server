@@ -1,5 +1,5 @@
 import notificationRepo from "../repository/notification.repo";
-import { NotificationType } from "@generated/prisma";
+import { NotificationType } from "@prisma/client";
 
 export class NotificationService {
   async getUserNotifications(userId: string, filters: any) {

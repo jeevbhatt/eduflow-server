@@ -1,5 +1,5 @@
 import { BaseRepository } from "@core/repository/BaseRepository";
-import { StudentProgress, StudentAchievement } from "@generated/prisma";
+import { StudentProgress, StudentAchievement } from "@prisma/client";
 import prisma from "../../../core/database/prisma";
 
 export class ProgressRepo extends BaseRepository<StudentProgress> {

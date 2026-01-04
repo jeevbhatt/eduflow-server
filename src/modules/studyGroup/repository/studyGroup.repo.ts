@@ -1,5 +1,5 @@
 import { BaseRepository } from "@core/repository/BaseRepository";
-import { StudyGroup, StudyGroupMember, StudySession, StudyGroupRole } from "@generated/prisma";
+import { StudyGroup, StudyGroupMember, StudySession, StudyGroupRole } from "@prisma/client";
 import prisma from "../../../core/database/prisma";
 
 export class StudyGroupRepo extends BaseRepository<StudyGroup> {

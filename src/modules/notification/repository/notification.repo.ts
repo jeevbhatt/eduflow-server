@@ -1,5 +1,5 @@
 import { BaseRepository } from "@core/repository/BaseRepository";
-import { Notification, NotificationType } from "@generated/prisma";
+import { Notification, NotificationType } from "@prisma/client";
 import prisma from "../../../core/database/prisma";
 
 export class NotificationRepo extends BaseRepository<Notification> {
