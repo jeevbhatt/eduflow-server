@@ -1,0 +1,23 @@
+D:\fullstack\proj2\server\node_modules\firebase-admin\lib\app\credential-internal.js:182
+            throw new error_1.FirebaseAppError(error_1.AppErrorCodes.INVALID_CREDENTIAL, 'Failed to parse private key: ' + error);
+            ^
+
+FirebaseAppError: Failed to parse private key: Error: Invalid PEM formatted message.
+    at new ServiceAccount (D:\fullstack\proj2\server\node_modules\firebase-admin\lib\app\credential-internal.js:182:19)
+    at new ServiceAccountCredential (D:\fullstack\proj2\server\node_modules\firebase-admin\lib\app\credential-internal.js:118:15)
+    at Object.cert (D:\fullstack\proj2\server\node_modules\firebase-admin\lib\app\credential-factory.js:105:54)
+    at Object.<anonymous> (D:\fullstack\proj2\server\dist\core\services\firebaseStorage.js:42:38)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24) {
+  errorInfo: {
+    code: 'app/invalid-credential',
+    message: 'Failed to parse private key: Error: Invalid PEM formatted message.'
+  },
+  codePrefix: 'app'
+}
+
+Node.js v24.11.1
