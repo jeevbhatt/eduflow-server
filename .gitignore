@@ -41,3 +41,6 @@ Thumbs.db
 *.swp
 
 /src/generated/prisma
+/depreciated_nextjs_dashboard_ui_reference
+/depreciated_saas-school-management
+eduflow-server-df3ed535db5c.json

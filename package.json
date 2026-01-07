@@ -58,6 +58,7 @@
     "prisma": "^6.1.0",
     "qrcode": "^1.5.4",
     "sequelize-typescript": "^2.1.6",
+    "stripe": "^20.1.1",
     "xss": "^1.0.15",
     "zod": "^4.2.1"
   },

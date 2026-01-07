@@ -48,8 +48,21 @@ export const authenticate = async (req: IExtendedRequest, res: Response, next: N
 
       req.instituteId = institute.id;
     } else {
-      // Fallback for non-subdomain routes or administrative actions
-      req.instituteId = (req.query.instituteId as string) || (req.body.instituteId as string);
+      // Fallback: Check if user owns an institute (for Institute Admins on main domain)
+      if (req.user?.role === "institute" || req.user?.role === "admin") {
+         const ownedInstitute = await prisma.institute.findFirst({
+            where: { ownerId: req.user.id },
+            select: { id: true }
+         });
+         if (ownedInstitute) {
+            req.instituteId = ownedInstitute.id;
+         }
+      }
+
+      // If still not found, allow explicit passing (validation should handle authorization)
+      if (!req.instituteId) {
+         req.instituteId = (req.query.instituteId as string) || (req.body.instituteId as string);
+      }
     }
 
     next();

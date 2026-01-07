@@ -193,6 +193,7 @@ model Institute {
   // Finance Module
   feeStructures FeeStructure[]
   feePayments   FeePayment[]
+  integrations  InstituteIntegration[]
 
   @@map("institutes")
 }
@@ -1311,5 +1312,30 @@ enum ExperimentStatus {
   running
   paused
   completed
+}
+
+// ============================================
+// INTEGRATIONS
+// ============================================
+
+model InstituteIntegration {
+  id           String    @id @default(uuid()) @db.Uuid
+  instituteId  String    @map("institute_id") @db.Uuid
+  provider     String // "google_sheets", "zoom", etc.
+  accessToken  String?   @map("access_token")
+  refreshToken String?   @map("refresh_token")
+  tokenType    String?   @map("token_type")
+  expiryDate   DateTime? @map("expiry_date")
+  scope        String?
+  metadata     Json? // Store additional info like linked sheet ID, etc.
+  isActive     Boolean   @default(true) @map("is_active")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  institute Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  @@unique([instituteId, provider])
+  @@index([instituteId])
+  @@map("institute_integrations")
 }
 
