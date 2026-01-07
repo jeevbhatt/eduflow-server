@@ -1,6 +1,5 @@
 import * as admin from "firebase-admin";
 import { v4 as uuidv4 } from "uuid";
-// @ts-ignore
 import { v2 as cloudinary } from "cloudinary";
 import * as streamifier from "streamifier";
 

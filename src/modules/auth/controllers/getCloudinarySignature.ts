@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-// @ts-ignore
 import { v2 as cloudinary } from "cloudinary";
 import { authenticate } from "../../../core/middleware/authenticate";
 
