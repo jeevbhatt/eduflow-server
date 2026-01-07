@@ -63,7 +63,6 @@
     "stripe": "^20.1.1",
     "xss": "^1.0.15",
     "zod": "^4.2.1",
-    "@types/cloudinary": "^1.0.9",
     "@types/nodemailer": "^6.4.17",
     "@types/streamifier": "^0.1.2"
   },
@@ -72,7 +71,8 @@
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.16",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "@types/cloudinary": "^1.0.9"
   },
   "_moduleAliases": {
     "@core": "dist/core",
