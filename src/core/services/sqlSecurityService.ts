@@ -103,9 +103,23 @@ export const logSuspiciousQuery = (
   console.warn(`[SQL SECURITY ALERT] User: ${userId || 'unknown'} | Action: ${action} | Details: ${details}`);
 };
 
+/**
+ * Builds a safe dynamic table name for a tenant
+ */
+export const buildTableName = (prefix: string, instituteNumber: string | number): string => {
+  const suffix = sanitizeTableSuffix(instituteNumber);
+  const fullName = `${prefix}${suffix}`;
+
+  // Final validation of the combined name
+  validateSqlIdentifier(fullName, 'built table name');
+
+  return fullName;
+};
+
 export default {
   validateSqlIdentifier,
   validateInstituteNumber,
   sanitizeTableSuffix,
   logSuspiciousQuery,
+  buildTableName,
 };

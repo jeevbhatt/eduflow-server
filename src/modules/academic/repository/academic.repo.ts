@@ -17,7 +17,7 @@ export class AcademicRepo extends BaseRepository<Assessment> {
   async submitResult(data: {
     assessmentId: string;
     studentId: string;
-    score: number;
+    marks: number;
     remarks?: string;
     instituteId: string;
   }) {
@@ -34,7 +34,7 @@ export class AcademicRepo extends BaseRepository<Assessment> {
           select: { firstName: true, lastName: true },
         },
       },
-      orderBy: { score: "desc" },
+      orderBy: { marks: "desc" },
     });
   }
 }

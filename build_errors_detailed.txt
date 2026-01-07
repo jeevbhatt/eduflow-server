@@ -1,0 +1,5 @@
+src/core/services/firebaseStorage.ts(3,34): error TS2307: Cannot find module 'cloudinary' or its corresponding type declarations.
+src/core/services/firebaseStorage.ts(4,25): error TS7016: Could not find a declaration file for module 'streamifier'. 'D:/fullstack/proj2/server/node_modules/streamifier/lib/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/streamifier` if it exists or add a new declaration (.d.ts) file containing `declare module 'streamifier';`
+src/modules/auth/controllers/getCloudinarySignature.ts(2,34): error TS2307: Cannot find module 'cloudinary' or its corresponding type declarations.
+src/modules/auth/controllers/getCloudinarySignature.ts(3,30): error TS2307: Cannot find module '../../../../core/middleware/authenticate' or its corresponding type declarations.
