@@ -1,6 +1,9 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import * as jose from "jose";
 import authRepo from "../repository/auth.repo";
+import instituteRepo from "../../institute/repository/institute.repo";
+
+
 
 export class AuthService {
   private readonly jwtSecret: string;
@@ -51,6 +54,47 @@ export class AuthService {
 
     return { user, ...tokens };
   }
+
+  async register(data: any) {
+    const existingUser = await authRepo.findByEmail(data.email);
+    if (existingUser) {
+      throw new Error("Email already registered");
+    }
+
+    const hashedPassword = await this.hashPassword(data.password);
+
+    // Create User
+    const user = await authRepo.createWithProfile({
+      email: data.email,
+      password: hashedPassword,
+      firstName: data.name,
+      role: "institute", // Default role for registration via this form
+    });
+
+    // Create Institute if schoolName is provided
+    if (data.schoolName) {
+      const subdomain = data.schoolName.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-') + '-' + Math.random().toString(36).substring(2, 6);
+      const instituteNumber = "INST-" + Math.floor(100000 + Math.random() * 900000).toString();
+
+      await instituteRepo.create({
+        instituteName: data.schoolName,
+        email: data.email,
+        ownerId: user.id,
+        subdomain: subdomain,
+        instituteNumber: instituteNumber,
+        accountStatus: "active", // Activate trial by default
+      });
+    }
+
+    const tokens = await this.generateTokens({
+      id: user.id,
+      email: user.email,
+      role: user.role
+    });
+
+    return { user, tokens };
+  }
 }
+
 
 export default new AuthService();
