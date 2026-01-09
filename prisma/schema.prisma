@@ -8,6 +8,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum InstituteType {
+  SCHOOL
+  HIGH_SCHOOL
+  UNIVERSITY
+  TRAINING_CENTER
+}
+
 // ============================================
 // STUDENT CART MODEL (for controller compatibility)
 // ============================================
@@ -138,6 +145,7 @@ model User {
 
 model Institute {
   id                       String                 @id @default(uuid()) @db.Uuid
+  type                     InstituteType          @default(SCHOOL) @map("type")
   createdAt                DateTime               @default(now()) @map("created_at")
   updatedAt                DateTime               @updatedAt @map("updated_at")
   deletedAt                DateTime?              @map("deleted_at")

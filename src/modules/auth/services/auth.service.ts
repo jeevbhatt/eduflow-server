@@ -67,7 +67,8 @@ export class AuthService {
     const user = await authRepo.createWithProfile({
       email: data.email,
       password: hashedPassword,
-      firstName: data.name,
+      firstName: data.firstName,
+      lastName: data.lastName,
       role: "institute", // Default role for registration via this form
     });
 

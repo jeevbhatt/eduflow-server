@@ -3,20 +3,18 @@ import authService from "../services/auth.service";
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { name, firstName, email, schoolName, password } = req.body;
+    const { firstName, lastName, email, schoolName, password } = req.body;
 
-    // Accept both 'name' and 'firstName' for backward compatibility
-    const userName = name || firstName;
-
-    if (!userName || !email || !password) {
+    if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({
         status: "error",
-        message: "Required fields (name/firstName, email, password) are missing"
+        message: "Required fields (firstName, lastName, email, password) are missing"
       });
     }
 
     const { user, tokens } = await authService.register({
-      name: userName,
+      firstName,
+      lastName,
       email,
       password,
       schoolName
