@@ -1,4 +1,5 @@
 import helmet from "helmet";
+import crypto from "crypto";
 import { Request, Response, NextFunction } from "express";
 
 export const helmetConfig = helmet();
@@ -11,6 +12,18 @@ export const additionalSecurityHeaders = (req: Request, res: Response, next: Nex
 };
 
 export const getCsrfToken = (req: Request, res: Response) => {
-  // Placeholder for CSRF logic
-  res.json({ csrfToken: "dummy-token" });
+  // Generate a secure CSRF token
+  const csrfToken = crypto.randomUUID();
+
+  // Store in cookie for validation
+  const isProduction = process.env.NODE_ENV === "production";
+  res.cookie("_csrf", csrfToken, {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: "lax",
+    domain: isProduction ? ".eduflow.jeevanbhatt.com.np" : undefined,
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  });
+
+  res.json({ csrfToken });
 };

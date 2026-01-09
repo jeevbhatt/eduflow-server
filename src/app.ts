@@ -44,19 +44,37 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(sanitizeBody);
 app.use(sanitizeQuery);
 
-// CORS
+// Dynamic CORS origin validator for subdomain support
+const allowedOriginPatterns = [
+  /^http:\/\/localhost:(3000|3001|3002|3003|4000)$/,
+  /^https?:\/\/(www\.)?eduflow\.jeevanbhatt\.com\.np$/,
+  /^https?:\/\/(student|teacher|super-admin|admin)\.eduflow\.jeevanbhatt\.com\.np$/,
+  /^https?:\/\/[a-z0-9-]+\.eduflow\.jeevanbhatt\.com\.np$/, // Institute subdomains
+];
+
+const corsOriginValidator = (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+  // Allow requests with no origin (like mobile apps or curl)
+  if (!origin) {
+    return callback(null, true);
+  }
+
+  // Check against allowed patterns
+  const isAllowed = allowedOriginPatterns.some(pattern => pattern.test(origin));
+
+  if (isAllowed) {
+    callback(null, true);
+  } else {
+    console.warn(`CORS blocked origin: ${origin}`);
+    callback(new Error('Not allowed by CORS'), false);
+  }
+};
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "http://localhost:3002",
-      "http://localhost:3003",
-      process.env.FRONTEND_URL || "",
-    ].filter(Boolean),
+    origin: corsOriginValidator,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],
   })
 );
 
