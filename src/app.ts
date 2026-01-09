@@ -25,6 +25,13 @@ envConfigService.validateEnvOrExit();
 const app = express();
 
 // ============================================
+// PROXY TRUST (REQUIRED FOR Render/Heroku/etc)
+// ============================================
+// Trust the first proxy (Render/Heroku load balancer)
+// This fixes the "X-Forwarded-For header is set but trust proxy is false" error
+app.set("trust proxy", 1);
+
+// ============================================
 // SECURITY & PERSISTENCE (CORE)
 // ============================================
 app.use(helmetConfig);
