@@ -1,7 +1,7 @@
 import sendMail from "./sendMail";
 import { securityAlertEmail } from "./email-templates";
 
-const SUPER_ADMIN_EMAIL = "codingwithjiwan@gmail.com";
+const SUPER_ADMIN_EMAIL = process.env.SECURITY_SUPER_ADMIN_EMAIL || "codingwithjiwan@gmail.com";
 
 export class SecurityService {
   /**

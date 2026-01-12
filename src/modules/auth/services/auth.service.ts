@@ -49,7 +49,7 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string, instituteSlug?: string) {
     const user = await authRepo.findByEmail(email);
 
     // Check if email exists - provide helpful error
@@ -90,6 +90,21 @@ export class AuthService {
       );
     }
 
+    // Check institute membership if slug is provided (subdomain lock)
+    if (instituteSlug) {
+      const isOwner = user.ownedInstitutes?.some((i: any) => i.subdomain === instituteSlug);
+      const isStudent = user.studentProfiles?.some((p: any) => p.institute.subdomain === instituteSlug);
+      const isTeacher = user.teacherProfiles?.some((p: any) => p.institute.subdomain === instituteSlug);
+
+      if (!isOwner && !isStudent && !isTeacher) {
+        throw new AuthError(
+          "You do not have access to this institute's portal.",
+          "INSTITUTE_ACCESS_DENIED",
+          403
+        );
+      }
+    }
+
     const tokens = await this.generateTokens({ id: user.id, email: user.email, role: user.role });
 
     // Update last login
@@ -98,7 +113,16 @@ export class AuthService {
     // Remove sensitive data
     const { password: _, verificationToken: __, ...safeUser } = user;
 
-    return { user: safeUser, ...tokens };
+    // Get primary institute info for redirection
+    const primaryInstitute = user.ownedInstitutes?.[0] ||
+                           user.studentProfiles?.[0]?.institute ||
+                           user.teacherProfiles?.[0]?.institute;
+
+    return {
+      user: safeUser,
+      instituteSlug: primaryInstitute?.subdomain,
+      ...tokens
+    };
   }
 
   async register(data: any) {

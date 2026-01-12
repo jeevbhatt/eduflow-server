@@ -11,7 +11,8 @@ export const honeypotTrap = async (req: Request, res: Response, next: NextFuncti
   const userAgent = req.get("User-Agent");
 
   // Define highly suspicious paths that are never part of EduFlow
-  const traps = [
+  const trapEnv = process.env.HONEYPOT_TRAP_PATHS;
+  const traps = trapEnv ? trapEnv.split(",") : [
     "/wp-admin",
     "/wp-login.php",
     "/.env",

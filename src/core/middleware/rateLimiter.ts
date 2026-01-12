@@ -19,8 +19,8 @@ export const apiLimiter = rateLimit({
  * Auth Limiter - Prevents brute force login attempts
  */
 export const authLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 10, // limit each IP to 10 attempts
+  windowMs: Number(process.env.RATE_LIMIT_LOGIN_WINDOW_MS) || 60 * 60 * 1000,
+  max: Number(process.env.RATE_LIMIT_LOGIN_MAX) || 10,
   message: {
     status: "error",
     message: "Too many login attempts, please try again after an hour"
@@ -42,8 +42,8 @@ export const authLimiter = rateLimit({
  * Registration Limiter - Prevents signup spam
  */
 export const registrationLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 3, // limit each IP to 3 registrations
+  windowMs: Number(process.env.RATE_LIMIT_REGISTER_WINDOW_MS) || 60 * 60 * 1000,
+  max: Number(process.env.RATE_LIMIT_REGISTER_MAX) || 3,
   message: {
     status: "error",
     message: "Too many accounts created from this IP. Please try again after an hour."
@@ -54,8 +54,8 @@ export const registrationLimiter = rateLimit({
  * Email Resend Limiter - Protects mail quota
  */
 export const emailResendLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // limit each IP to 5 resends
+  windowMs: Number(process.env.RATE_LIMIT_EMAIL_RESEND_WINDOW_MS) || 15 * 60 * 1000,
+  max: Number(process.env.RATE_LIMIT_EMAIL_RESEND_MAX) || 5,
   message: {
     status: "error",
     message: "Too many verification requests. Please check your inbox or try again later."
@@ -66,8 +66,8 @@ export const emailResendLimiter = rateLimit({
  * Payment Limiter - Prevents card testing
  */
 export const paymentLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 15,
+  windowMs: Number(process.env.RATE_LIMIT_PAYMENT_WINDOW_MS) || 60 * 60 * 1000,
+  max: Number(process.env.RATE_LIMIT_PAYMENT_MAX) || 15,
   message: {
     status: "error",
     message: "Too many payment attempts. Please try again later for security."

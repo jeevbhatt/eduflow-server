@@ -7,9 +7,20 @@ export class AuthRepo extends BaseRepository<User> {
     super("user");
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<any | null> {
     return this.model.findUnique({
       where: { email },
+      include: {
+        ownedInstitutes: {
+          select: { subdomain: true, instituteName: true, id: true }
+        },
+        studentProfiles: {
+          include: { institute: { select: { subdomain: true, id: true } } }
+        },
+        teacherProfiles: {
+          include: { institute: { select: { subdomain: true, id: true } } }
+        }
+      }
     });
   }
 

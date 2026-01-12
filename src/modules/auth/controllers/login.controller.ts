@@ -3,7 +3,7 @@ import authService, { AuthError } from "../services/auth.service";
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, instituteSlug } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({
@@ -13,7 +13,7 @@ export const login = async (req: Request, res: Response) => {
       });
     }
 
-    const result = await authService.login(email, password);
+    const result = await authService.login(email, password, instituteSlug);
 
     const isProduction = process.env.NODE_ENV === "production";
     const cookieDomain = isProduction ? ".eduflow.jeevanbhatt.com.np" : undefined;
@@ -43,6 +43,7 @@ export const login = async (req: Request, res: Response) => {
         firstName: result.user.firstName,
         lastName: result.user.lastName,
       },
+      instituteSlug: result.instituteSlug,
       accessToken: result.accessToken,
       refreshToken: result.refreshToken,
     });
