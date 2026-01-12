@@ -1,9 +1,18 @@
 import { Request, Response } from "express";
-import authService from "../services/auth.service";
+import authService, { AuthError } from "../services/auth.service";
 
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        status: "error",
+        code: "VALIDATION_ERROR",
+        message: "Email and password are required",
+      });
+    }
+
     const result = await authService.login(email, password);
 
     const isProduction = process.env.NODE_ENV === "production";
@@ -31,14 +40,27 @@ export const login = async (req: Request, res: Response) => {
         id: result.user.id,
         email: result.user.email,
         role: result.user.role,
+        firstName: result.user.firstName,
+        lastName: result.user.lastName,
       },
       accessToken: result.accessToken,
       refreshToken: result.refreshToken,
     });
   } catch (error: any) {
+    // Handle structured AuthError with specific codes
+    if (error instanceof AuthError) {
+      return res.status(error.statusCode).json({
+        status: "error",
+        code: error.code,
+        message: error.message,
+        data: error.data,
+      });
+    }
+
     res.status(401).json({
       status: "error",
-      message: error.message,
+      code: "LOGIN_FAILED",
+      message: error.message || "Login failed",
     });
   }
 };

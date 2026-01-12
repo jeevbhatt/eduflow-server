@@ -6,7 +6,12 @@ import envConfigService from "@core/services/envConfigService";
 
 // Core Infrastructure
 import { tenantMiddleware } from "@core/middleware/tenantMiddleware";
-import { apiLimiter, authLimiter } from "@core/middleware/rateLimiter";
+import {
+  apiLimiter,
+  authLimiter,
+  registrationLimiter
+} from "@core/middleware/rateLimiter";
+import { honeypotTrap } from "@core/middleware/honeypot";
 import globalErrorHandler from "@core/middleware/globalErrorHandler";
 import {
   helmetConfig,
@@ -86,11 +91,15 @@ app.use(
 );
 
 // ============================================
-// MULTI-TENANCY & RATE LIMITING
+// SECURITY TRAPS (HONEYPOT) & GLOBAL LIMITING
 // ============================================
+app.use(honeypotTrap); // Catch AI scanners early
 app.use("/api/", apiLimiter);
+
+// Specialized Auth Protections
 app.use("/api/auth/login", authLimiter);
-app.use("/api/auth/register", authLimiter);
+app.use("/api/auth/register", registrationLimiter);
+
 app.use(tenantMiddleware);
 
 // ============================================

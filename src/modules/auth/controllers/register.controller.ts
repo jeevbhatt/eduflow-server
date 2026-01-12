@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import authService from "../services/auth.service";
+import authService, { AuthError } from "../services/auth.service";
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -8,11 +8,12 @@ export const register = async (req: Request, res: Response) => {
     if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({
         status: "error",
+        code: "VALIDATION_ERROR",
         message: "Required fields (firstName, lastName, email, password) are missing"
       });
     }
 
-    const { user, tokens } = await authService.register({
+    const result = await authService.register({
       firstName,
       lastName,
       email,
@@ -20,39 +21,33 @@ export const register = async (req: Request, res: Response) => {
       schoolName
     });
 
-    const isProduction = process.env.NODE_ENV === "production";
-    const cookieDomain = isProduction ? ".eduflow.jeevanbhatt.com.np" : undefined;
-
-    res.cookie("eduflow_auth_token", tokens.accessToken, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: "lax",
-      domain: cookieDomain,
-      maxAge: 15 * 60 * 1000,
-    });
-
-    res.cookie("refreshToken", tokens.refreshToken, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: "lax",
-      domain: cookieDomain,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
-
+    // Don't set cookies for unverified users
     res.status(201).json({
       status: "success",
+      message: result.message,
+      requiresVerification: result.requiresVerification,
       user: {
-        id: user.id,
-        email: user.email,
-        role: user.role,
+        id: result.user.id,
+        email: result.user.email,
+        firstName: result.user.firstName,
+        emailVerified: result.user.emailVerified,
       },
-      accessToken: tokens.accessToken,
-      refreshToken: tokens.refreshToken,
     });
   } catch (error: any) {
+    // Handle structured AuthError
+    if (error instanceof AuthError) {
+      return res.status(error.statusCode).json({
+        status: "error",
+        code: error.code,
+        message: error.message,
+        data: error.data,
+      });
+    }
+
     res.status(400).json({
       status: "error",
-      message: error.message,
+      code: "REGISTRATION_FAILED",
+      message: error.message || "Registration failed",
     });
   }
 };

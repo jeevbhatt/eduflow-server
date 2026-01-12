@@ -17,6 +17,29 @@ export class InstituteRepo extends BaseRepository<Institute> {
       where: { instituteNumber },
     });
   }
+
+  /**
+   * Find institute by subdomain prefix (for duplicate checking)
+   * Checks if any subdomain starts with the given prefix
+   */
+  async findBySubdomainPrefix(prefix: string): Promise<Institute | null> {
+    return this.model.findFirst({
+      where: {
+        subdomain: {
+          startsWith: prefix,
+        },
+      },
+    });
+  }
+
+  /**
+   * Find institute by exact subdomain
+   */
+  async findBySubdomain(subdomain: string): Promise<Institute | null> {
+    return this.model.findUnique({
+      where: { subdomain },
+    });
+  }
 }
 
 export default new InstituteRepo();
