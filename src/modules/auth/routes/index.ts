@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { login, logout, googleLogin, register, verifyEmail, resendVerification } from "../controllers";
 import { getCloudinarySignature } from "../controllers/getCloudinarySignature";
+import { forgotPassword, resetPassword } from "../controllers/forgotPassword.controller";
 import { authenticate } from "../../../core/middleware/authenticate";
 import { emailResendLimiter } from "../../../core/middleware/rateLimiter";
 
@@ -13,6 +14,10 @@ router.post("/google-login", googleLogin);
 // Email verification routes
 router.post("/verify-email", verifyEmail);
 router.post("/resend-verification", emailResendLimiter, resendVerification);
+
+// Password reset routes
+router.post("/forgot-password", emailResendLimiter, forgotPassword);
+router.post("/reset-password", resetPassword);
 
 router.post("/logout", logout);
 
