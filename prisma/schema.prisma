@@ -142,6 +142,9 @@ model User {
   assignedTickets SupportTicket[]        @relation("TicketAssignee")
   ticketMessages  SupportTicketMessage[]
 
+  // Join requests
+  joinRequests InstituteJoinRequest[]
+
   @@map("users")
 }
 
@@ -205,7 +208,35 @@ model Institute {
   feePayments   FeePayment[]
   integrations  InstituteIntegration[]
 
+  // Join requests
+  joinRequests InstituteJoinRequest[]
+
   @@map("institutes")
+}
+
+// ============================================
+// INSTITUTE JOIN REQUEST MODEL
+// ============================================
+
+model InstituteJoinRequest {
+  id          String    @id @default(uuid()) @db.Uuid
+  userId      String    @map("user_id") @db.Uuid
+  instituteId String    @map("institute_id") @db.Uuid
+  role        String    // "student" or "teacher"
+  status      String    @default("pending") // pending, approved, rejected
+  message     String?   // Optional message from user
+  reviewedBy  String?   @map("reviewed_by") @db.Uuid
+  reviewedAt  DateTime? @map("reviewed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  institute Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, instituteId])
+  @@index([instituteId])
+  @@index([status])
+  @@map("institute_join_requests")
 }
 
 model FeeStructure {
