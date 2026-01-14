@@ -1,6 +1,6 @@
 import { BaseRepository } from "@core/repository/BaseRepository";
 import prisma from "@core/database/prisma";
-import { JoinRequestRole, JoinRequestStatus } from "@/generated/prisma";
+import { JoinRequestRole, JoinRequestStatus } from "../../../generated/prisma";
 
 export class JoinRequestRepo {
   private model = prisma.instituteJoinRequest;
