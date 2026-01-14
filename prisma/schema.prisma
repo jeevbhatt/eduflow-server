@@ -363,6 +363,7 @@ model Course {
   category  Category        @relation(fields: [categoryId], references: [id])
   chapters    Chapter[]
   assignments Assignment[]
+  assessments Assessment[]
   students    StudentCourse[]
   teachers    TeacherCourse[]
 
@@ -509,6 +510,7 @@ model Assessment {
   updatedAt    DateTime  @updatedAt @map("updated_at")
 
   institute Institute          @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  course    Course             @relation(fields: [courseId], references: [id], onDelete: Cascade)
   results   AssessmentResult[]
 
   @@index([instituteId])
