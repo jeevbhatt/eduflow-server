@@ -29,6 +29,34 @@ enum JoinRequestStatus {
   rejected
 }
 
+// Fee & Payment Enums (optimized from strings)
+enum FeePaymentStatus {
+  pending
+  partial
+  paid
+}
+
+enum PaymentMethod {
+  cash
+  card
+  bank_transfer
+  online
+}
+
+enum FeeFrequency {
+  monthly
+  quarterly
+  semi_annual
+  annual
+  one_time
+}
+
+enum ResourceStatus {
+  available
+  low_stock
+  out_of_stock
+}
+
 // ============================================
 // STUDENT CART MODEL (for controller compatibility)
 // ============================================
@@ -340,6 +368,9 @@ model Course {
 
   @@index([instituteId])
   @@index([categoryId])
+  @@index([isPublished])
+  @@index([createdAt])
+  @@index([instituteId, isPublished])
   @@map("courses")
 }
 
@@ -459,6 +490,8 @@ model Attendance {
   @@index([instituteId])
   @@index([courseId])
   @@index([date])
+  @@index([markedBy])
+  @@index([instituteId, date])
   @@map("attendance")
 }
 
@@ -654,6 +687,7 @@ model LibraryResource {
   @@index([categoryId])
   @@index([type])
   @@index([isPublic])
+  @@index([uploadedBy])
   @@map("library_resources")
 }
 
@@ -925,6 +959,7 @@ model Assignment {
   @@index([instituteId])
   @@index([courseId])
   @@index([dueDate])
+  @@index([createdBy])
   @@map("assignments")
 }
 
@@ -999,6 +1034,8 @@ model ForumTopic {
   @@index([categoryId])
   @@index([authorId])
   @@index([isPinned])
+  @@index([createdAt])
+  @@index([categoryId, isPinned])
   @@map("forum_topics")
 }
 
@@ -1110,6 +1147,8 @@ model SupportTicket {
   @@index([instituteId])
   @@index([status])
   @@index([priority])
+  @@index([assignedTo])
+  @@index([assignedTo, status])
   @@map("support_tickets")
 }
 
@@ -1221,6 +1260,7 @@ model Payment {
   @@index([instituteId])
   @@index([status])
   @@index([createdAt])
+  @@index([paidAt])
   @@map("payments")
 }
 
