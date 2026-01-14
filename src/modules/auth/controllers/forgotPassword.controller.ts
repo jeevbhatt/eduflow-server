@@ -65,6 +65,10 @@ export const forgotPassword = async (req: Request, res: Response) => {
       },
     });
 
+    // Build reset URL
+    const frontendUrl = process.env.FRONTEND_URL || "https://eduflow.jeevanbhatt.com.np";
+    const resetUrl = `${frontendUrl}/reset-password?email=${encodeURIComponent(user.email)}&otp=${otp}`;
+
     // Send email
     await sendMail({
       to: user.email,
@@ -78,6 +82,11 @@ export const forgotPassword = async (req: Request, res: Response) => {
             <div style="background-color: #f4f4f9; display: inline-block; padding: 15px 30px; font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #1a1a2e; border: 2px dashed #1a1a2e; border-radius: 8px;">
               ${otp}
             </div>
+          </div>
+          <div style="text-align: center; margin: 20px 0;">
+            <a href="${resetUrl}" style="background-color: #1a1a2e; color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
+              Click here to Reset Password
+            </a>
           </div>
           <p style="color: #e63946; font-size: 14px; text-align: center;">This OTP will expire in ${OTP_EXPIRY_MINUTES} minutes.</p>
           <p style="color: #666; font-size: 14px;">If you didn't request this, please ensure your account security or ignore this email.</p>
