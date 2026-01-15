@@ -11,6 +11,7 @@ import prisma from "@core/database/prisma";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import sendMail from "@core/services/sendMail";
+import { passwordResetEmail } from "@core/services/email-templates";
 
 const OTP_EXPIRY_MINUTES = 10;
 const BCRYPT_ROUNDS = 10;
@@ -70,30 +71,11 @@ export const forgotPassword = async (req: Request, res: Response) => {
     const resetUrl = `${frontendUrl}/reset-password?email=${encodeURIComponent(user.email)}&otp=${otp}`;
 
     // Send email
+    const emailContent = passwordResetEmail(user.firstName || "User", user.email, otp);
     await sendMail({
       to: user.email,
-      subject: "Password Reset OTP - EduFlow",
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; padding: 20px; border-radius: 10px;">
-          <h2 style="color: #1a1a2e; text-align: center;">Reset Your Password</h2>
-          <p>Hi ${user.firstName || "there"},</p>
-          <p>We received a request to reset your password for your EduFlow account. Use the OTP code below to proceed:</p>
-          <div style="text-align: center; margin: 30px 0;">
-            <div style="background-color: #f4f4f9; display: inline-block; padding: 15px 30px; font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #1a1a2e; border: 2px dashed #1a1a2e; border-radius: 8px;">
-              ${otp}
-            </div>
-          </div>
-          <div style="text-align: center; margin: 20px 0;">
-            <a href="${resetUrl}" style="background-color: #1a1a2e; color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
-              Click here to Reset Password
-            </a>
-          </div>
-          <p style="color: #e63946; font-size: 14px; text-align: center;">This OTP will expire in ${OTP_EXPIRY_MINUTES} minutes.</p>
-          <p style="color: #666; font-size: 14px;">If you didn't request this, please ensure your account security or ignore this email.</p>
-          <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
-          <p style="color: #999; font-size: 11px; text-align: center;">© EduFlow - Your Education Management Platform</p>
-        </div>
-      `,
+      subject: emailContent.subject,
+      html: emailContent.html,
     });
 
     res.json({

@@ -11,6 +11,7 @@ import {
   getInstituteJoinRequests,
   reviewJoinRequest,
 } from "../controllers/joinRequest.controller";
+import { searchInstitutes } from "../controllers/searchInstitutes.controller";
 import { authenticate } from "../../../core/middleware/authenticate";
 import { registrationLimiter } from "../../../core/middleware/rateLimiter";
 
@@ -18,6 +19,7 @@ const router = Router();
 
 // Public routes
 router.get("/public", getPublicInstitutes);
+router.get("/search", searchInstitutes);
 router.get("/slug/:slug", getInstituteBySlug);
 
 // Admin routes (super admin only)

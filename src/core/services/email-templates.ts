@@ -144,22 +144,31 @@ export const resendVerificationEmail = (firstName: string, token: string) => {
 };
 
 /**
- * 3. Password Reset
+ * 3. Password Reset (Premium Branded)
  */
-export const passwordResetEmail = (firstName: string, token: string) => {
-  const resetUrl = `${BASE_URL}/reset-password?token=${token}`;
+export const passwordResetEmail = (firstName: string, email: string, otp: string) => {
+  const resetUrl = `${BASE_URL}/reset-password?email=${encodeURIComponent(email)}&otp=${otp}`;
 
   const content = `
     <h2 style="margin: 0 0 20px 0; font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.025em;">
       Reset your password 🔐
     </h2>
     <p style="margin: 0 0 24px 0; font-size: 16px; line-height: 1.7; color: #475569;">
-      Hello ${firstName}, we received a request to recalibrate your account security. Use the button below to establish a new password.
+      Hello ${firstName}, we received a request to recalibrate your account security. Use the OTP code below to verify your identity, or simply click the secure button to establish a new password.
     </p>
-    ${emailButton('Establish New Password', resetUrl)}
-    <div style="margin-top: 32px; padding: 20px; background-color: #fef2f2; border-radius: 12px; border: 1px solid #fee2e2;">
-      <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #991b1b;">
-        <strong>Safety First:</strong> If you did not initiate this request, your account may be secure but we recommend updating your password just in case.
+
+    <div style="text-align: center; margin: 32px 0;">
+      <div style="background-color: #f8fafc; display: inline-block; padding: 16px 32px; font-size: 32px; font-weight: 800; letter-spacing: 0.1em; color: #1e1b4b; border: 2px dashed #6366f1; border-radius: 16px;">
+        ${otp}
+      </div>
+      <p style="margin: 12px 0 0 0; font-size: 12px; color: #94a3b8; text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">Your OTP Secure Code</p>
+    </div>
+
+    ${emailButton('Reset My Password', resetUrl)}
+
+    <div style="margin-top: 32px; padding: 24px; background-color: #fef2f2; border-radius: 16px; border: 1px solid #fee2e2;">
+      <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #991b1b;">
+        <strong>Safety First:</strong> If you did not initiate this request, your account may be secure but we recommend monitoring your dashboard. This link and code will expire in 10 minutes.
       </p>
     </div>
   `;

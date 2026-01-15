@@ -33,11 +33,27 @@ export class InstituteRepo extends BaseRepository<Institute> {
   }
 
   /**
-   * Find institute by exact subdomain
+   * Search institutes by name or subdomain (case-insensitive)
    */
-  async findBySubdomain(subdomain: string): Promise<Institute | null> {
-    return this.model.findUnique({
-      where: { subdomain },
+  async search(query: string, limit: number = 20) {
+    return this.model.findMany({
+      where: {
+        OR: [
+          { instituteName: { contains: query, mode: "insensitive" } },
+          { subdomain: { contains: query, mode: "insensitive" } },
+        ],
+        // Only return institutes that are active/trial
+        accountStatus: { in: ["active", "trial"] },
+      },
+      take: limit,
+      select: {
+        id: true,
+        instituteName: true,
+        subdomain: true,
+        logo: true,
+        address: true,
+        type: true,
+      }
     });
   }
 }
