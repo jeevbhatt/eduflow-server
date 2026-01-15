@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @media only screen and (max-width: 600px) {
+      .container { width: 100% !important; padding: 20px !important; }
+      .content { padding: 30px 20px !important; }
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background-color: #09090b !important; }
+      .main-card { background-color: #18181b !important; color: #f4f4f5 !important; border: 1px solid #27272a !important; }
+      .header-text { color: #f4f4f5 !important; }
+      .sub-text { color: #a1a1aa !important; }
+      .footer { background-color: #111113 !important; }
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #f8fafc; color: #1e293b;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="min-width: 100%; padding: 40px 0;">
+    <tr>
+      <td align="center">
+        <!-- Main Container -->
+        <table class="container" role="presentation" width="600" cellspacing="0" cellpadding="0" style="width: 600px; margin: 0 auto;">
+          <tr>
+            <td>
+              <div class="main-card" style="background-color: #ffffff; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.04); border: 1px solid #f1f5f9; overflow: hidden;">
+
+                <!-- Logo/Header -->
+                <div style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); padding: 40px 20px; text-align: center;">
+                  <h1 style="margin: 0; font-size: 32px; font-weight: 800; color: #ffffff; letter-spacing: -0.025em; text-transform: lowercase;">EduFlow<span style="color: rgba(255,255,255,0.7);">.</span></h1>
+                  <p style="margin: 8px 0 0 0; font-size: 14px; color: rgba(255,255,255,0.8); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;">Elevating Modern Education</p>
+                </div>
+
+                <!-- Body content -->
+                <div class="content" style="padding: 48px 40px;">
+                  <h2 style="margin: 0 0 20px 0; font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.025em;">
+                    Confirm your registration 👋
+                  </h2>
+                  <p style="margin: 0 0 24px 0; font-size: 16px; line-height: 1.7; color: #475569;">
+                    We're thrilled to have you at <strong>EduFlow</strong>. To unlock your workspace and start exploring, please verify your email address.
+                  </p>
+
+                  <div style="text-align: center; padding: 32px 0;">
+                    <a href="{{ .ConfirmationURL }}" target="_blank" style="display: inline-block; padding: 16px 36px; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); color: #ffffff; text-decoration: none; font-weight: 700; font-size: 16px; border-radius: 12px; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);">
+                      Verify My Account
+                    </a>
+                  </div>
+
+                  <div style="margin-top: 32px; padding: 20px; background-color: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
+                    <p style="margin: 0 0 8px 0; font-size: 13px; font-weight: 600; color: #64748b; text-transform: uppercase;">Direct Link</p>
+                    <p style="margin: 0; font-size: 13px; color: #6366f1; word-break: break-all; opacity: 0.8;">{{ .ConfirmationURL }}</p>
+                  </div>
+                  <p style="margin: 24px 0 0 0; font-size: 13px; color: #94a3b8; font-style: italic;">
+                    Note: This secure link is intended for registration verification.
+                  </p>
+                </div>
+
+                <!-- Footer area -->
+                <div class="footer" style="padding: 32px 40px; text-align: center; background-color: #fcfcfd; border-top: 1px solid #f1f5f9;">
+                  <p style="margin: 0 0 12px 0; font-size: 13px; color: #64748b; line-height: 1.5;">
+                    This communication was sent by <strong>EduFlow</strong> Security. If this wasn't intended for you, please disregard this email.
+                  </p>
+                  <p style="margin: 0; font-size: 11px; color: #94a3b8; font-weight: 500;">
+                    © 2026 EDUFLOW TECHNOLOGIES. ALL RIGHTS RESERVED.
+                  </p>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
