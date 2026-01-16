@@ -1,7 +1,8 @@
 import joinRequestRepo from "../repository/joinRequest.repo";
 import instituteRepo from "../repository/institute.repo";
 import prisma from "@core/database/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma, NotificationType } from "@prisma/client";
+import notificationService from "../../notification/services/notification.service";
 
 class JoinRequestService {
   private readonly MAX_PENDING_REQUESTS = 3;
@@ -70,12 +71,27 @@ class JoinRequestService {
     }
 
     // Create request
-    return joinRequestRepo.create({
+    const request = await joinRequestRepo.create({
       userId,
       instituteId,
       role,
       message,
     });
+
+    // Notify Institute Owner
+    if (institute.ownerId) {
+      await notificationService.createNotification({
+        userId: institute.ownerId,
+        type: NotificationType.info,
+        title: "New Join Request",
+        message: `A new request to join as a ${role} has been submitted by a user.`,
+        category: "institute",
+        link: `/portals/institute/dashboard/requests`,
+        metadata: { requestId: request.id, instituteId }
+      });
+    }
+
+    return request;
   }
 
   async getUserRequests(userId: string) {
@@ -159,6 +175,19 @@ class JoinRequestService {
           });
         }
       }
+
+      // Notify User of the result
+      await notificationService.createNotification({
+        userId: request.userId,
+        type: status === "approved" ? NotificationType.success : NotificationType.warning,
+        title: status === "approved" ? "Join Request Approved" : "Join Request Rejected",
+        message: status === "approved"
+          ? `Your request to join ${institute.instituteName} has been approved.`
+          : `Your request to join ${institute.instituteName} has been declined.`,
+        category: "system",
+        link: status === "approved" ? "/portals/student/dashboard" : "/institutes",
+        metadata: { status, instituteId: request.instituteId }
+      });
 
       return updated;
     });
