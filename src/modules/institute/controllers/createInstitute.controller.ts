@@ -9,10 +9,6 @@ export const createInstitute = async (req: IExtendedRequest, res: Response) => {
 
     const institute = await instituteService.createInstitute(userId, req.body);
 
-    if (req.user) {
-      req.user.currentInstituteNumber = institute.instituteNumber;
-    }
-
     res.status(201).json({
       status: "success",
       message: "Institute created successfully",

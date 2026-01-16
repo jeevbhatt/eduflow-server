@@ -4,9 +4,9 @@ import categoryService from "../services/category.service";
 
 export const create = async (req: IExtendedRequest, res: Response) => {
   try {
-    const instituteId = req.user?.currentInstituteNumber;
+    const instituteId = req.instituteId;
     if (!instituteId) {
-      return res.status(403).json({ message: "Institute ID not found" });
+      return res.status(403).json({ message: "Institute context required" });
     }
 
     const category = await categoryService.createCategory({

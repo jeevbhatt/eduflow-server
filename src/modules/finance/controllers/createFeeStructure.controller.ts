@@ -4,8 +4,8 @@ import financeService from "../services/finance.service";
 
 export const createFeeStructure = async (req: IExtendedRequest, res: Response) => {
   try {
-    const instituteId = req.user?.currentInstituteNumber;
-    if (!instituteId) throw new Error("Institute ID not found");
+    const instituteId = req.instituteId;
+    if (!instituteId) throw new Error("Institute context required");
 
     const structure = await financeService.createFeeStructure(instituteId, req.body);
     res.status(201).json({ status: "success", data: structure });

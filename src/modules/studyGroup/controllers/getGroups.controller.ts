@@ -4,8 +4,8 @@ import studyGroupService from "../services/studyGroup.service";
 
 export const getGroups = async (req: IExtendedRequest, res: Response) => {
   try {
-    const instituteId = req.user?.currentInstituteNumber;
-    if (!instituteId) throw new Error("Institute ID not found");
+    const instituteId = req.instituteId;
+    if (!instituteId) throw new Error("Institute context required");
 
     const groups = await studyGroupService.getInstituteGroups(instituteId, req.query);
     res.json({ status: "success", data: groups });

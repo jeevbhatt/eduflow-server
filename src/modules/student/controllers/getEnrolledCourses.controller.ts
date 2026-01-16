@@ -5,7 +5,7 @@ import studentRepo from "../repository/student.repo";
 export const getEnrolledCourses = async (req: IExtendedRequest, res: Response) => {
   try {
     const userId = req.user?.id;
-    const instituteId = req.user?.currentInstituteNumber; // Or search by subdomain in tenant
+    const instituteId = req.instituteId;
 
     if (!userId) throw new Error("User ID not found");
 

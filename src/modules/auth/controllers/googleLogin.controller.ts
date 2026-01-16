@@ -42,18 +42,23 @@ export const googleLogin = async (req: Request, res: Response) => {
       role: user.role,
     });
 
+    const isProduction = process.env.NODE_ENV === "production";
+    const cookieDomain = isProduction ? ".eduflow.jeevanbhatt.com.np" : undefined;
+
     // Standardize cookie name for client-side proxy (Next.js)
     res.cookie("eduflow_auth_token", accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: isProduction,
+      sameSite: "lax",
+      domain: cookieDomain,
       maxAge: 15 * 60 * 1000, // 15 mins (match access token)
     });
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: isProduction,
+      sameSite: "lax",
+      domain: cookieDomain,
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 

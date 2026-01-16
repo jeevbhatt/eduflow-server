@@ -81,6 +81,21 @@ export const paymentLimiter = rateLimit({
         details: `Endpoint: ${req.originalUrl}\nMethod: ${req.method}`,
       });
     }
-    res.status(options.statusCode).send(options.message);
+  res.status(options.statusCode).send(options.message);
   }
+});
+
+/**
+ * Join Request Limiter - Prevents institute join request spam
+ * 10 clicks = 15 minute break as requested
+ */
+export const joinRequestLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10,
+  message: {
+    status: "error",
+    message: "Too many join requests. Please take a 15-minute break."
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
 });

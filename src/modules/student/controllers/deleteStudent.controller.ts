@@ -5,8 +5,8 @@ import studentService from "../services/student.service";
 export const deleteStudent = async (req: IExtendedRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const instituteId = req.user?.currentInstituteNumber;
-    if (!instituteId) throw new Error("Institute ID not found");
+    const instituteId = req.instituteId;
+    if (!instituteId) throw new Error("Institute context required");
 
     await studentService.deleteStudent(id, instituteId);
     res.json({ status: "success", message: "Student deleted" });

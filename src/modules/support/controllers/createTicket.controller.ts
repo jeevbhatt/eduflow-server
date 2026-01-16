@@ -5,7 +5,7 @@ import supportService from "../services/support.service";
 export const createTicket = async (req: IExtendedRequest, res: Response) => {
   try {
     const userId = req.user?.id;
-    const instituteId = req.user?.currentInstituteNumber;
+    const instituteId = req.instituteId;
     if (!userId) throw new Error("User ID not found");
 
     const ticket = await supportService.createTicket({

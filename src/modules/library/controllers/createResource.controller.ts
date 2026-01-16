@@ -4,9 +4,9 @@ import libraryService from "../services/library.service";
 
 export const createResource = async (req: IExtendedRequest, res: Response) => {
   try {
-    const instituteId = req.user?.currentInstituteNumber;
+    const instituteId = req.instituteId;
     const userId = req.user?.id;
-    if (!instituteId || !userId) throw new Error("Unauthorized");
+    if (!instituteId || !userId) throw new Error("Unauthorized or context missing");
 
     const resource = await libraryService.createResource(instituteId, userId, req.body, req.file);
     res.status(201).json({ status: "success", data: resource });

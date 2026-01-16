@@ -2,6 +2,7 @@ import { Response, NextFunction } from "express";
 import * as jose from "jose";
 import { IExtendedRequest } from "./type";
 import prisma from "../database/prisma";
+import { contextStorage } from "../utils/contextStore";
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "your-jwt-secret");
 
@@ -10,12 +11,10 @@ export const authenticate = async (req: IExtendedRequest, res: Response, next: N
     let token = "";
     const authHeader = req.headers.authorization;
 
-    // 1. Check Bearer Token
+    // 1. Resolve Identity (Who is the user?)
     if (authHeader && authHeader.startsWith("Bearer ")) {
       token = authHeader.split(" ")[1];
-    }
-    // 2. Check eduflow_auth_token Cookie (Standardized)
-    else if (req.cookies?.eduflow_auth_token) {
+    } else if (req.cookies?.eduflow_auth_token) {
       token = req.cookies.eduflow_auth_token;
     }
 
@@ -24,48 +23,76 @@ export const authenticate = async (req: IExtendedRequest, res: Response, next: N
     }
 
     const { payload } = await jose.jwtVerify(token, JWT_SECRET);
-
-    if (!payload) {
+    if (!payload || !payload.id) {
       return res.status(401).json({ message: "Invalid or expired token" });
     }
 
     req.user = payload as any;
 
-    // 3. Resolve instituteId from tenant subdomain (Secure multi-tenancy)
+    // 2. Resolve Context (Which institute are they accessing?)
+    // Priority 1: Subdomain (Hardest to spoof)
     if (req.tenant?.subdomain) {
       const institute = await prisma.institute.findUnique({
         where: { subdomain: req.tenant.subdomain },
-        select: { id: true }
+        select: { id: true, ownerId: true }
       });
 
       if (!institute) {
         return res.status(404).json({
           status: "error",
-          message: "Tenant institute not found",
+          message: "Institute not found at this subdomain",
           code: "INVALID_TENANT"
         });
       }
 
       req.instituteId = institute.id;
-    } else {
-      // Fallback: Check if user owns an institute (for Institute Admins on main domain)
-      if (req.user?.role === "institute" || req.user?.role === "admin") {
-         const ownedInstitute = await prisma.institute.findFirst({
-            where: { ownerId: req.user.id },
-            select: { id: true }
-         });
-         if (ownedInstitute) {
-            req.instituteId = ownedInstitute.id;
+
+      // Security check: Does user have access to THIS institute?
+      // Skip check for super-admins or internal reserved subdomains (handled by tenantMiddleware)
+      if (req.user?.role !== "super-admin") {
+         // Check if owner
+         if (institute.ownerId === req.user?.id) {
+            // Authorized as owner
+         } else {
+            // Check if student/teacher in this specific institute
+            const [student, teacher] = await Promise.all([
+               prisma.student.findFirst({ where: { userId: req.user?.id, instituteId: institute.id } }),
+               prisma.teacher.findFirst({ where: { userId: req.user?.id, instituteId: institute.id } })
+            ]);
+
+            const isMember = !!(student || teacher);
+
+            // For now, we attach the member status to the request if needed
+            (req as any).isMember = isMember;
          }
       }
+    }
+    // Priority 2: Query/Body (For cross-origin or admin actions)
+    else {
+      req.instituteId = (req.query.instituteId as string) || (req.body.instituteId as string);
 
-      // If still not found, allow explicit passing (validation should handle authorization)
-      if (!req.instituteId) {
-         req.instituteId = (req.query.instituteId as string) || (req.body.instituteId as string);
+      // Fallback: Default to their own institute if they are an admin
+      if (!req.instituteId && (req.user?.role === "institute" || req.user?.role === "admin")) {
+        const owned = await prisma.institute.findFirst({
+           where: { ownerId: req.user?.id },
+           select: { id: true }
+        });
+        if (owned) req.instituteId = owned.id;
       }
     }
 
-    next();
+    // 3. Attach Contextual Prisma Client (Phase 3: RLS Implementation)
+    // Now handled automatically via AsyncLocalStorage in prisma.ts
+    req.prisma = prisma;
+
+    // Wrap the rest of the request in the context
+    contextStorage.run({
+      instituteId: req.instituteId!,
+      userId: req.user?.id,
+      role: req.user?.role
+    }, () => {
+      next();
+    });
   } catch (error) {
     return res.status(401).json({ message: "Invalid or expired token" });
   }

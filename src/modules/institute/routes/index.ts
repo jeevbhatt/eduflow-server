@@ -13,7 +13,7 @@ import {
 } from "../controllers/joinRequest.controller";
 import { searchInstitutes } from "../controllers/searchInstitutes.controller";
 import { authenticate } from "../../../core/middleware/authenticate";
-import { registrationLimiter } from "../../../core/middleware/rateLimiter";
+import { registrationLimiter, joinRequestLimiter } from "../../../core/middleware/rateLimiter";
 
 const router = Router();
 
@@ -32,7 +32,7 @@ router.post("/:id/subdomain", authenticate, updateSubdomain);
 
 // Join request routes
 router.get("/my-requests", authenticate, getMyJoinRequests);
-router.post("/:id/join", authenticate, requestJoinInstitute);
+router.post("/:id/join", authenticate, joinRequestLimiter, requestJoinInstitute);
 router.get("/:id/requests", authenticate, getInstituteJoinRequests);
 router.patch("/requests/:id", authenticate, reviewJoinRequest);
 

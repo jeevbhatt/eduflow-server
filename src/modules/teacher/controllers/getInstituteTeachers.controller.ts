@@ -4,9 +4,9 @@ import teacherService from "../services/teacher.service";
 
 export const getInstituteTeachers = async (req: IExtendedRequest, res: Response) => {
   try {
-    const instituteId = req.user?.currentInstituteNumber;
+    const instituteId = req.instituteId;
     if (!instituteId) {
-      return res.status(403).json({ message: "Institute ID not found in session" });
+      return res.status(403).json({ message: "Institute context required" });
     }
 
     const teachers = await teacherService.getAllTeachers(instituteId);

@@ -4,8 +4,8 @@ import libraryService from "../services/library.service";
 
 export const returnResource = async (req: IExtendedRequest, res: Response) => {
   try {
-    const instituteId = req.user?.currentInstituteNumber;
-    if (!instituteId) throw new Error("Institute ID not found");
+    const instituteId = req.instituteId;
+    if (!instituteId) throw new Error("Institute context required");
 
     const { borrowId } = req.body;
     await libraryService.returnResource(borrowId, instituteId);

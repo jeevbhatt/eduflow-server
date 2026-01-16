@@ -4,8 +4,8 @@ import studentService from "../services/student.service";
 
 export const createStudent = async (req: IExtendedRequest, res: Response) => {
   try {
-    const instituteId = req.user?.currentInstituteNumber;
-    if (!instituteId) throw new Error("Institute ID not found");
+    const instituteId = req.instituteId;
+    if (!instituteId) throw new Error("Institute context required");
 
     const {
       firstName,

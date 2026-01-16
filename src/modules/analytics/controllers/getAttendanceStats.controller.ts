@@ -4,9 +4,9 @@ import analyticsService from "../services/analytics.service";
 
 export const getAttendanceStats = async (req: IExtendedRequest, res: Response) => {
   try {
-    const instituteId = req.user?.currentInstituteNumber;
+    const instituteId = req.instituteId;
     if (!instituteId) {
-      return res.status(403).json({ message: "Institute ID not found" });
+      return res.status(403).json({ message: "Institute context required" });
     }
 
     const stats = await analyticsService.getAttendanceStats(instituteId);

@@ -5,7 +5,7 @@ import studyGroupService from "../services/studyGroup.service";
 export const createGroup = async (req: IExtendedRequest, res: Response) => {
   try {
     const userId = req.user?.id;
-    const instituteId = req.user?.currentInstituteNumber;
+    const instituteId = req.instituteId;
     if (!userId || !instituteId) throw new Error("Missing user or institute context");
 
     const group = await studyGroupService.createGroup({

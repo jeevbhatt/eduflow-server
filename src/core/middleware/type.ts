@@ -12,5 +12,6 @@ export interface IExtendedRequest extends Request {
     sanitizedId: string;
   };
   instituteId?: string;
+  prisma?: any; // Context-aware Prisma client
   file?: Express.Multer.File;
 }

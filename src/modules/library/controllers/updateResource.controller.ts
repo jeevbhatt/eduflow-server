@@ -5,8 +5,8 @@ import libraryService from "../services/library.service";
 export const updateResource = async (req: IExtendedRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const instituteId = req.user?.currentInstituteNumber;
-    if (!instituteId) throw new Error("Institute ID not found");
+    const instituteId = req.instituteId;
+    if (!instituteId) throw new Error("Institute context required");
 
     const updated = await libraryService.updateResource(id, instituteId, req.body, req.file);
     res.json({ status: "success", data: updated });
