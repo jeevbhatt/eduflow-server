@@ -4,31 +4,49 @@ import { PrismaClient, CourseLevel, Course } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const COURSES_DATA = [
-  // --- UNIVERSITY ---
-  { categoryName: "Science & Technology", name: "B.Sc. Computer Science & IT (CSIT)", price: 450000, duration: 4000, level: "beginner" },
-  { categoryName: "Science & Technology", name: "Bachelor in Computer Application (BCA)", price: 380000, duration: 3800, level: "beginner" },
-  { categoryName: "Management", name: "Bachelor of Business Administration (BBA)", price: 550000, duration: 3500, level: "beginner" },
-  { categoryName: "Management", name: "Bachelor of Business Studies (BBS)", price: 150000, duration: 3000, level: "beginner" },
-  { categoryName: "Engineering", name: "B.E. Civil Engineering", price: 850000, duration: 5000, level: "intermediate" },
-  { categoryName: "Law", name: "B.A. LL.B (5-Year Integrated)", price: 400000, duration: 6000, level: "beginner" },
-  { categoryName: "Medicine & Health Sciences", name: "Bachelor of Medicine, Bachelor of Surgery (MBBS)", price: 4500000, duration: 7000, level: "advanced" },
+  // --- UNIVERSITY (TU/KU/PU Style) ---
+  { categoryName: "Science & Technology", name: "B.Sc. CSIT - 1st Year (C Programming)", price: 45000, duration: 150, level: "beginner" },
+  { categoryName: "Science & Technology", name: "BCA - 2nd Semester (Data Structures)", price: 38000, duration: 140, level: "intermediate" },
+  { categoryName: "Science & Technology", name: "BIT - Database Management Systems", price: 40000, duration: 160, level: "intermediate" },
+  { categoryName: "Science & Technology", name: "Master of Computer Science (M.Sc.)", price: 120000, duration: 300, level: "advanced" },
+  { categoryName: "Management", name: "BBA - Principles of Management", price: 55000, duration: 120, level: "beginner" },
+  { categoryName: "Management", name: "BBS - Business Accountancy I", price: 15000, duration: 110, level: "beginner" },
+  { categoryName: "Management", name: "MBA - Entrepreneurship & Innovation", price: 85000, duration: 180, level: "advanced" },
+  { categoryName: "Engineering", name: "B.E. Civil - Structural Analysis", price: 95000, duration: 200, level: "advanced" },
+  { categoryName: "Engineering", name: "B.E. Computer - Artificial Intelligence", price: 85000, duration: 180, level: "intermediate" },
+  { categoryName: "Health Sciences", name: "MBBS - Human Anatomy (Phase I)", price: 450000, duration: 400, level: "advanced" },
+  { categoryName: "Health Sciences", name: "B.Sc. Nursing - Community Health", price: 45000, duration: 150, level: "intermediate" },
 
-  // --- HIGH SCHOOL ---
-  { categoryName: "Science (+2)", name: "Class 11 Physics", price: 25000, duration: 180, level: "beginner" },
-  { categoryName: "Science (+2)", name: "Class 12 Chemistry", price: 25000, duration: 180, level: "intermediate" },
-  { categoryName: "Management (+2)", name: "Principles of Accounting I", price: 20000, duration: 150, level: "beginner" },
-  { categoryName: "Management (+2)", name: "Business Studies", price: 18000, duration: 140, level: "beginner" },
+  // --- HIGH SCHOOL (+2 NEB) ---
+  { categoryName: "Science (+2)", name: "Class 11 Physics (Full Course)", price: 12500, duration: 180, level: "beginner" },
+  { categoryName: "Science (+2)", name: "Class 12 Physics (Modern Physics)", price: 12500, duration: 180, level: "intermediate" },
+  { categoryName: "Science (+2)", name: "Class 11 Chemistry (Organic Focus)", price: 12000, duration: 170, level: "beginner" },
+  { categoryName: "Science (+2)", name: "Class 12 Chemistry (Physical Chemistry)", price: 12000, duration: 170, level: "intermediate" },
+  { categoryName: "Science (+2)", name: "Plus 2 Biology (Complete Guide)", price: 11000, duration: 160, level: "beginner" },
+  { categoryName: "Management (+2)", name: "Class 11 Accountancy (I)", price: 8000, duration: 140, level: "beginner" },
+  { categoryName: "Management (+2)", name: "Class 12 Accountancy (II)", price: 8500, duration: 140, level: "intermediate" },
+  { categoryName: "Management (+2)", name: "Business Math - Class 11", price: 7500, duration: 130, level: "beginner" },
+  { categoryName: "Management (+2)", name: "Economics - Class 12", price: 7000, duration: 120, level: "beginner" },
 
-  // --- SCHOOL ---
-  { categoryName: "Secondary Education", name: "Class 10 - Science (Nepal Board)", price: 15000, duration: 200, level: "beginner" },
-  { categoryName: "Secondary Education", name: "Class 10 - Mathematics", price: 15000, duration: 200, level: "beginner" },
-  { categoryName: "Lower Secondary", name: "Grade 8 Social Studies", price: 10000, duration: 150, level: "beginner" },
+  // --- SCHOOL (CDC / SEE) ---
+  { categoryName: "Secondary (SEE)", name: "SEE Science - Physics & Biology", price: 5500, duration: 100, level: "beginner" },
+  { categoryName: "Secondary (SEE)", name: "SEE Compulsory Math (Full Syllabus)", price: 6000, duration: 120, level: "beginner" },
+  { categoryName: "Secondary (SEE)", name: "Grade 10 Optional Math", price: 6500, duration: 130, level: "intermediate" },
+  { categoryName: "Secondary (SEE)", name: "Social Studies & Nepali (SEE)", price: 4500, duration: 90, level: "beginner" },
+  { categoryName: "Primary (CDC)", name: "Grade 5 Science & Environment", price: 3000, duration: 80, level: "beginner" },
+  { categoryName: "Primary (CDC)", name: "Grade 4 Creative Arts & English", price: 2500, duration: 70, level: "beginner" },
+  { categoryName: "Pre-School", name: "Montessori English Basics", price: 2000, duration: 40, level: "beginner" },
 
   // --- TRAINING CENTER ---
-  { categoryName: "Information Technology", name: "Fullstack Web Development (MERN)", price: 35000, duration: 120, level: "intermediate" },
-  { categoryName: "Information Technology", name: "Mastering Python & Django", price: 28000, duration: 90, level: "intermediate" },
-  { categoryName: "Vocational Skills", name: "Industrial Electrical Technician", price: 22000, duration: 150, level: "beginner" },
-  { categoryName: "Language & Test Prep", name: "IELTS Preparation Course", price: 12000, duration: 60, level: "beginner" },
+  { categoryName: "Loksewa Preparation", name: "Kharidar - General Knowledge Set", price: 6500, duration: 60, level: "beginner" },
+  { categoryName: "Loksewa Preparation", name: "Nayab Subba - IQ & Writing", price: 8500, duration: 80, level: "intermediate" },
+  { categoryName: "Loksewa Preparation", name: "Section Officer - Governance & Law", price: 15000, duration: 120, level: "advanced" },
+  { categoryName: "IT & Professional", name: "MERN Stack Web Development", price: 35000, duration: 120, level: "intermediate" },
+  { categoryName: "IT & Professional", name: "Python for Data Science", price: 28000, duration: 90, level: "beginner" },
+  { categoryName: "IT & Professional", name: "Digital Marketing & SEO Course", price: 15000, duration: 60, level: "beginner" },
+  { categoryName: "Language & Bridge", name: "IELTS Intensive Prep (8.0 Target)", price: 12000, duration: 60, level: "beginner" },
+  { categoryName: "Language & Bridge", name: "PTE Academic - Quick Result", price: 10000, duration: 45, level: "beginner" },
+  { categoryName: "Language & Bridge", name: "Japanese Language (N5 to N4)", price: 15000, duration: 180, level: "beginner" },
 ];
 
 async function main() {

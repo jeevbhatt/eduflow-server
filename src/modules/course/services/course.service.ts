@@ -1,7 +1,6 @@
 import courseRepo from "../repository/course.repo";
-import { Course } from "@prisma/client";
+import { Course, LessonType } from "@prisma/client";
 import firebaseStorage from "../../../core/services/firebaseStorage";
-import { Express } from "express";
 
 export class CourseService {
   async getAllCourses(instituteId: string) {
@@ -12,7 +11,7 @@ export class CourseService {
     return courseRepo.findWithDetails(courseId);
   }
 
-  async createCourse(data: any, thumbnail?: Express.Multer.File) {
+  async createCourse(data: any, thumbnail?: any) {
     let thumbnailUrl = null;
     if (thumbnail) {
       thumbnailUrl = await firebaseStorage.uploadFile(
@@ -28,7 +27,7 @@ export class CourseService {
     });
   }
 
-  async updateCourse(courseId: string, data: any, thumbnail?: Express.Multer.File) {
+  async updateCourse(courseId: string, data: any, thumbnail?: any) {
     const existing = await courseRepo.findById(courseId);
     if (!existing) throw new Error("Course not found");
 
@@ -56,6 +55,40 @@ export class CourseService {
       await firebaseStorage.deleteFile(existing.thumbnail);
     }
     return courseRepo.delete(courseId);
+  }
+
+  async createLesson(data: any, file?: any) {
+    let contentUrl = data.contentUrl;
+
+    if (file && (data.type === LessonType.pdf || data.type === LessonType.document)) {
+      contentUrl = await firebaseStorage.uploadFile(
+        file.buffer,
+        `courses/lessons/${Date.now()}-${file.originalname}`,
+        file.mimetype
+      );
+    }
+
+    return courseRepo.createLesson({
+      ...data,
+      contentUrl,
+    });
+  }
+
+  async updateLesson(lessonId: string, data: any, file?: any) {
+    let contentUrl = data.contentUrl;
+
+    if (file && (data.type === LessonType.pdf || data.type === LessonType.document)) {
+      contentUrl = await firebaseStorage.uploadFile(
+        file.buffer,
+        `courses/lessons/${Date.now()}-${file.originalname}`,
+        file.mimetype
+      );
+    }
+
+    return courseRepo.updateLesson(lessonId, {
+      ...data,
+      contentUrl,
+    });
   }
 }
 

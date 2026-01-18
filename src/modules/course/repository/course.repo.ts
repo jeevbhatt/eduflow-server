@@ -1,4 +1,4 @@
-import { BaseRepository } from "@core/repository/BaseRepository";
+import { BaseRepository } from "../../../core/repository/BaseRepository";
 import { Course } from "@prisma/client";
 import prisma from "../../../core/database/prisma";
 
@@ -40,6 +40,19 @@ export class CourseRepo extends BaseRepository<Course> {
           },
         },
       },
+    });
+  }
+
+  async createLesson(data: any) {
+    return prisma.lesson.create({
+      data,
+    });
+  }
+
+  async updateLesson(id: string, data: any) {
+    return prisma.lesson.update({
+      where: { id },
+      data,
     });
   }
 }

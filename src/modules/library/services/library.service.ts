@@ -98,9 +98,16 @@ export class LibraryService {
         throw new Error("Active borrow record not found");
       }
 
+      const fine = this.calculateFine(borrow.dueDate, new Date());
+
       await tx.libraryBorrow.update({
         where: { id: borrowId },
-        data: { status: "returned", returnedAt: new Date() },
+        data: {
+          status: "returned",
+          returnedAt: new Date(),
+          fineAmount: fine,
+          isFinePaid: fine === 0
+        },
       });
 
       const newAvailable = borrow.resource.availableCopies + 1;
@@ -116,6 +123,51 @@ export class LibraryService {
 
   async getStudentHistory(studentId: string, instituteId: string) {
     return libraryRepo.findBorrowHistory(studentId, instituteId);
+  }
+
+  /**
+   * Calculate fine based on overdue days.
+   * Default: NPR 5 per day.
+   */
+  private calculateFine(dueDate: Date, returnDate: Date): number {
+    if (returnDate <= dueDate) return 0;
+
+    const diffTime = Math.abs(returnDate.getTime() - dueDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    const ratePerDay = parseInt(process.env.LIBRARY_FINE_RATE_PER_DAY || "5");
+    return diffDays * ratePerDay;
+  }
+
+  async getOverdueResources(instituteId: string) {
+    return (prisma as any).libraryBorrow.findMany({
+      where: {
+        status: "borrowed",
+        dueDate: { lt: new Date() },
+        resource: { instituteId }
+      },
+      include: {
+        student: true,
+        resource: true
+      },
+      orderBy: { dueDate: "asc" }
+    });
+  }
+
+  async markFineAsPaid(borrowId: string, instituteId: string) {
+    const borrow = await (prisma as any).libraryBorrow.findUnique({
+      where: { id: borrowId },
+      include: { resource: true }
+    });
+
+    if (!borrow || borrow.resource.instituteId !== instituteId) {
+      throw new Error("Borrow record not found");
+    }
+
+    return (prisma as any).libraryBorrow.update({
+      where: { id: borrowId },
+      data: { isFinePaid: true }
+    });
   }
 }
 

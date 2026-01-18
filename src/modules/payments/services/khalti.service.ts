@@ -30,17 +30,22 @@ class KhaltiService {
     const secretKey = await this.getCredentials(instituteId);
     if (!secretKey) throw new Error("Khalti configuration missing");
 
-    const response = await axios.post(
-      this.initiateUrl,
-      payload,
-      {
-        headers: {
-          Authorization: `Key ${secretKey}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return response.data;
+    try {
+      const response = await axios.post(
+        this.initiateUrl,
+        payload,
+        {
+          headers: {
+            Authorization: `Key ${secretKey}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error: any) {
+      console.error("Khalti Initiation Error:", error.response?.data || error.message);
+      throw new Error(error.response?.data?.detail || "Khalti payment initiation failed");
+    }
   }
 
   async verifyPayment(pidx: string, instituteId?: string) { // verify needs context too if keys differ

@@ -1,5 +1,6 @@
 import notificationRepo from "../repository/notification.repo";
 import { NotificationType } from "@prisma/client";
+import pushService from "./push.service";
 
 export class NotificationService {
   async getUserNotifications(userId: string, filters: any) {
@@ -21,7 +22,24 @@ export class NotificationService {
   }
 
   async createNotification(data: { userId: string; type: NotificationType; title: string; message: string; category?: string; link?: string; metadata?: any }) {
-    return notificationRepo.create(data);
+    const notification = await notificationRepo.create(data);
+
+    // Trigger push notification
+    try {
+      await pushService.sendNotification(data.userId, {
+        title: data.title,
+        body: data.message,
+        data: {
+          category: data.category,
+          link: data.link,
+          id: notification.id
+        }
+      });
+    } catch (error) {
+      console.error("Failed to send push notification:", error);
+    }
+
+    return notification;
   }
 }
 

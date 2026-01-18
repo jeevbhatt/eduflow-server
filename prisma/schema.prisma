@@ -184,6 +184,9 @@ model User {
   // Join requests
   joinRequests InstituteJoinRequest[]
 
+  // Push Subscriptions
+  pushSubscriptions PushSubscription[]
+
   // Admin & Content
   blogs Blog[]
 
@@ -459,20 +462,30 @@ model Chapter {
 }
 
 model Lesson {
-  id          String   @id @default(uuid()) @db.Uuid
-  chapterId   String   @map("chapter_id") @db.Uuid
-  name        String   @map("lesson_name")
-  description String?  @map("lesson_description")
-  videoUrl    String?  @map("video_url")
-  duration    Int?     @map("lesson_duration") // minutes
-  order       Int      @default(0)
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id          String     @id @default(uuid()) @db.Uuid
+  chapterId   String     @map("chapter_id") @db.Uuid
+  name        String     @map("lesson_name")
+  description String?    @map("lesson_description")
+  type        LessonType @default(video)
+  videoUrl    String?    @map("video_url")
+  contentUrl  String?    @map("content_url") // For PDFs, Documents, etc.
+  duration    Int?       @map("lesson_duration") // minutes
+  order       Int        @default(0)
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
 
   chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
   @@index([chapterId])
   @@map("lessons")
+}
+
+enum LessonType {
+  video
+  pdf
+  document
+  quiz
+  assignment
 }
 
 model Attendance {
@@ -704,6 +717,8 @@ model LibraryBorrow {
   dueDate    DateTime            @map("due_date")
   returnedAt DateTime?           @map("returned_at")
   status     LibraryBorrowStatus @default(borrowed)
+  fineAmount Decimal             @default(0) @map("fine_amount") @db.Decimal(10, 2)
+  isFinePaid Boolean             @default(false) @map("is_fine_paid")
   renewCount Int                 @default(0) @map("renew_count")
   notes      String?
   createdAt  DateTime            @default(now()) @map("created_at")
@@ -885,6 +900,21 @@ model Notification {
   @@index([createdAt])
   @@index([userId, isRead]) // Composite for unread notifications query
   @@map("notifications")
+}
+
+model PushSubscription {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  fcmToken  String   @unique @map("fcm_token")
+  deviceType String?  @map("device_type")
+  userAgent String?  @map("user_agent")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("push_subscriptions")
 }
 
 // ============================================

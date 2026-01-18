@@ -47,9 +47,9 @@ export abstract class BaseRepository<T> {
   }
 
   async delete(id: string): Promise<T> {
-    return this.model.delete({
+    return this.model.update({
       where: { id },
-      data: { deletedAt: new Date() }, // Default to soft delete if possible
+      data: { deletedAt: new Date() },
     });
   }
 

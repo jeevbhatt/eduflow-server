@@ -5,32 +5,28 @@ const prisma = new PrismaClient();
 
 const CORE_CATEGORIES: Record<InstituteType, { name: string; description: string }[]> = {
   UNIVERSITY: [
-    { name: "Science & Technology", description: "Bachelor and Master programs in Pure Sciences, IT, and Engineering." },
-    { name: "Management", description: "Business Administration, Commerce, and Management studies." },
-    { name: "Humanities & Social Sciences", description: "Arts, Sociology, Economics, and Language studies." },
-    { name: "Law", description: "LLB and LLM programs specializing in Nepalese and International Law." },
-    { name: "Medicine & Health Sciences", description: "MBBS, Nursing, Pharmacy, and Public Health." },
-    { name: "Engineering", description: "Civil, Computer, Electrical, and Electronic Engineering fields." },
-    { name: "Agriculture", description: "Agricultural Science, Forestry, and Veterinary studies." },
+    { name: "Science & Technology", description: "BSc. CSIT, BCA, and BIT programs following TU and KU curricula." },
+    { name: "Management", description: "BBA, BBS, and MBA programs focusing on Nepal's business landscape." },
+    { name: "Engineering", description: "Civil, Computer, and Electrical Engineering licensed by Nepal Engineering Council." },
+    { name: "Health Sciences", description: "MBBS, BSc. Nursing, and Public Health programs (IOM/KU)." },
+    { name: "Humanities & Social Sciences", description: "Sociology, Rural Development, and Journalism degrees." },
+    { name: "Law", description: "BA.LLB and LLM programs specializing in Nepalese Jurisprudence." },
   ],
   HIGH_SCHOOL: [
-    { name: "Science (+2)", description: "Physics, Chemistry, Biology, and Mathematics stream." },
-    { name: "Management (+2)", description: "Accountancy, Economics, and Business Studies stream." },
-    { name: "Humanities (+2)", description: "Mass Communication, Sociology, and English stream." },
-    { name: "Law (+2)", description: "Introduction to Legal Studies and Constitutional Law." },
-    { name: "A-Levels", description: "Cambridge International Examinations curriculum." },
+    { name: "Science (+2)", description: "NEB Class 11-12 Physics, Chemistry, Biology, and Math streams." },
+    { name: "Management (+2)", description: "Accountancy, Economics, and Social Studies for the modern manager." },
+    { name: "Law (+2)", description: "Introduction to Law and Constitutional Studies for high schoolers." },
+    { name: "Education & Humanities", description: "Mass Com, Sociology, and Teaching foundational courses." },
   ],
   SCHOOL: [
-    { name: "Primary Education", description: "Grades 1 to 5 following the CDC curriculum." },
-    { name: "Lower Secondary", description: "Grades 6 to 8 focused on core subject fundamentals." },
-    { name: "Secondary Education", description: "Grades 9 and 10 preparing for the SEE examination." },
-    { name: "Pre-Primary", description: "Nursery, LKG, and UKG foundational learning." },
+    { name: "Primary (CDC)", description: "Grades 1 to 5 following the Curriculum Development Centre (CDC) standards." },
+    { name: "Secondary (SEE)", description: "Grades 6 to 10 focusing on core subjects and SEE preparation." },
+    { name: "Pre-School", description: "Nursery, LKG, and UKG Montessori-inspired foundational years." },
   ],
   TRAINING_CENTER: [
-    { name: "Information Technology", description: "Programming, Networking, and Cybersecurity training." },
-    { name: "Vocational Skills", description: "Electrical, Plumbing, and Mechanical skills training (CTEVT based)." },
-    { name: "Language & Test Prep", description: "IELTS, TOEFL, and foreign language certification." },
-    { name: "Professional Development", description: "Banking, Accounting, and Soft Skills for professionals." },
+    { name: "Loksewa Preparation", description: "Aayog preparation for Kharidar, Na.Su, and Section Officer exams." },
+    { name: "IT & Professional", description: "MERN Stack, Python, and Digital Marketing career-focused training." },
+    { name: "Language & Bridge", description: "IELTS, PTE, and Japanese language courses for abroad study." },
   ],
 };
 
