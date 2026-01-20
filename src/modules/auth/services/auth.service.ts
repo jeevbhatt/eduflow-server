@@ -4,6 +4,7 @@ import authRepo from "../repository/auth.repo";
 import instituteRepo from "../../institute/repository/institute.repo";
 import sendMail from "@core/services/sendMail";
 import { verificationEmail, resendVerificationEmail, emailVerifiedSuccessEmail } from "@core/services/email-templates";
+import { JWT_CONFIG, JWT_SECRET_UINT8, JWT_REFRESH_SECRET_UINT8 } from "@core/config/jwt.config";
 
 // Custom error types for better client-side handling
 export class AuthError extends Error {
@@ -19,13 +20,7 @@ export class AuthError extends Error {
 }
 
 export class AuthService {
-  private readonly jwtSecret: string;
-  private readonly jwtRefreshSecret: string;
-
-  constructor() {
-    this.jwtSecret = process.env.JWT_SECRET || "your-jwt-secret";
-    this.jwtRefreshSecret = process.env.JWT_REFRESH_SECRET || "your-refresh-secret";
-  }
+  constructor() {}
 
   async hashPassword(password: string): Promise<string> {
     return bcrypt.hash(password, 10);
@@ -36,15 +31,17 @@ export class AuthService {
   }
 
   async generateTokens(payload: any) {
+    console.log("[Auth Debug] Generating token. Secret length:", JWT_SECRET_UINT8.length);
+
     const accessToken = await new jose.SignJWT(payload)
       .setProtectedHeader({ alg: "HS256" })
-      .setExpirationTime("15m")
-      .sign(new TextEncoder().encode(this.jwtSecret));
+      .setExpirationTime(JWT_CONFIG.ACCESS_EXPIRATION)
+      .sign(JWT_SECRET_UINT8);
 
     const refreshToken = await new jose.SignJWT(payload)
       .setProtectedHeader({ alg: "HS256" })
-      .setExpirationTime("7d")
-      .sign(new TextEncoder().encode(this.jwtRefreshSecret));
+      .setExpirationTime(JWT_CONFIG.REFRESH_EXPIRATION)
+      .sign(JWT_REFRESH_SECRET_UINT8);
 
     return { accessToken, refreshToken };
   }

@@ -3,8 +3,7 @@ import * as jose from "jose";
 import { IExtendedRequest } from "./type";
 import prisma from "../database/prisma";
 import { contextStorage } from "../utils/contextStore";
-
-const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "your-jwt-secret");
+import { JWT_SECRET_UINT8 } from "../config/jwt.config";
 
 export const authenticate = async (req: IExtendedRequest, res: Response, next: NextFunction) => {
   try {
@@ -19,15 +18,25 @@ export const authenticate = async (req: IExtendedRequest, res: Response, next: N
     }
 
     if (!token) {
+      console.log("[Auth Debug] No token provided in headers or cookies");
       return res.status(401).json({ message: "Authentication required" });
     }
 
-    const { payload } = await jose.jwtVerify(token, JWT_SECRET);
-    if (!payload || !payload.id) {
+    console.log("[Auth Debug] Verifying token. Secret length:", JWT_SECRET_UINT8.length);
+    try {
+      const { payload } = await jose.jwtVerify(token, JWT_SECRET_UINT8);
+      console.log("[Auth Debug] Token verified successfully for user:", payload.id);
+
+      if (!payload || !payload.id) {
+        console.error("[Auth Debug] Token verified but payload is missing 'id'");
+        return res.status(401).json({ message: "Invalid or expired token" });
+      }
+
+      req.user = payload as any;
+    } catch (jwtErr: any) {
+      console.error("[Auth Debug] JWT Verify failed:", jwtErr.message);
       return res.status(401).json({ message: "Invalid or expired token" });
     }
-
-    req.user = payload as any;
 
     // 2. Resolve Context (Which institute are they accessing?)
     // Priority 1: Subdomain (Hardest to spoof)
