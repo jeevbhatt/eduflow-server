@@ -64,7 +64,6 @@ const tenantMiddleware = (req: IExtendedRequest, res: Response, next: NextFuncti
             subdomain,
             sanitizedId: sanitizedTenant
         };
-        console.log("[Auth Debug] Tenant resolved:", req.tenant);
 
         next();
     } catch (error: any) {
